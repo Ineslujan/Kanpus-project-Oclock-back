@@ -25,7 +25,7 @@ Les élèves pourront consulter en lecture seule leur calendrier ~~et leur promo
 | React Router Dom | |
 
 ## Participants au projet
-Romain Deldon: lead dev back, product owner
-Ludovic Lecoq: lead de front
-Inès Lujian: dev front, scrum master
-Mark Smaniotto: dev back, git master
+Romain Deldon: lead dev back, product owner</br>
+Ludovic Lecoq: lead de front</br>
+Inès Lujian: dev front, scrum master</br>
+Mark Smaniotto: dev back, git master</br>
