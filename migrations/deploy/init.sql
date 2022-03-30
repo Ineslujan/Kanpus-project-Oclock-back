@@ -4,16 +4,16 @@ BEGIN;
 
 CREATE DOMAIN nametext AS TEXT CHECK (LENGTH(VALUE) <= 30);
 
-CREATE TABLE "place" (
+CREATE TABLE "kanpus_place" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name nametext NOT NULL UNIQUE,
-    position INT NOT NULL,
+    position INT NOT NULL UNIQUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CHECK (position >= 0)
 );
 
-CREATE TABLE "event" (
+CREATE TABLE "kanpus_event" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name nametext NOT NULL,
     address TEXT,
@@ -22,12 +22,12 @@ CREATE TABLE "event" (
     role TEXT,
     start_date TIMESTAMPTZ NOT NULL,
     duration INTERVAL NOT NULL,
-    place_id INT NOT NULL REFERENCES place(id),
+    place_id INT NOT NULL REFERENCES kanpus_place(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
 );
-CREATE TABLE "promo" (
+CREATE TABLE "kanpus_promo" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name nametext NOT NULL UNIQUE,
     start_school_year DATE,
@@ -36,7 +36,7 @@ CREATE TABLE "promo" (
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
-CREATE TABLE "user" (
+CREATE TABLE "kanpus_user" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     firstname nametext NOT NULL,
     lastname nametext NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE "user" (
     color TEXT,
     role TEXT NOT NULL,
     is_permanent BOOLEAN,
-    promo_id INT NOT NULL REFERENCES promo(id),
+    promo_id INT NOT NULL REFERENCES kanpus_promo(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CHECK (LENGTH(color)<= 7),
@@ -56,16 +56,16 @@ CREATE TABLE "user" (
     CHECK (LENGTH(password)>= 3)
 );
 
-CREATE TABLE "user_has_event" (
+CREATE TABLE "kanpus_user_has_event" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES user(id),
-    event_id INT NOT NULL REFERENCES event(id),
+    user_id INT NOT NULL REFERENCES kanpus_user(id),
+    event_id INT NOT NULL REFERENCES kanpus_event(id),
     is_absent BOOLEAN NOT NULL DEFAULT false
 );
 
 
 
-CREATE TABLE "group" (
+CREATE TABLE "kanpus_group" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     name nametext NOT NULL UNIQUE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
@@ -73,10 +73,10 @@ CREATE TABLE "group" (
     
 );
 
-CREATE TABLE "user_has_group" (
+CREATE TABLE "kanpus_user_has_group" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES user(id),
-    group_id INT NOT NULL REFERENCES group(id),
+    user_id INT NOT NULL REFERENCES kanpus_user(id),
+    group_id INT NOT NULL REFERENCES kanpus_group(id),
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
