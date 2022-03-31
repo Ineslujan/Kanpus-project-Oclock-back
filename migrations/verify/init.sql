@@ -13,3 +13,4 @@ SELECT * FROM kanpus_event WHERE false;
 SELECT * FROM kanpus_place WHERE false;
 
 ROLLBACK;
+

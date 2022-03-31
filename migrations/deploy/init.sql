@@ -22,7 +22,7 @@ CREATE TABLE "kanpus_event" (
     role TEXT,
     start_date TIMESTAMPTZ NOT NULL,
     duration INTERVAL NOT NULL,
-    place_id INT NOT NULL REFERENCES kanpus_place(id),
+    place_id INT REFERENCES kanpus_place(id) ON DELETE SET NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 
@@ -48,7 +48,7 @@ CREATE TABLE "kanpus_user" (
     color TEXT,
     role TEXT NOT NULL,
     is_permanent BOOLEAN,
-    promo_id INT NOT NULL REFERENCES kanpus_promo(id),
+    promo_id INT REFERENCES kanpus_promo(id) ON DELETE SET NULL,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     CHECK (LENGTH(color)<= 7),
@@ -58,11 +58,10 @@ CREATE TABLE "kanpus_user" (
 
 CREATE TABLE "kanpus_user_has_event" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES kanpus_user(id),
-    event_id INT NOT NULL REFERENCES kanpus_event(id),
+    user_id INT NOT NULL REFERENCES kanpus_user(id) ON DELETE CASCADE,
+    event_id INT NOT NULL REFERENCES kanpus_event(id) ON DELETE CASCADE,
     is_absent BOOLEAN NOT NULL DEFAULT false
 );
-
 
 
 CREATE TABLE "kanpus_group" (
@@ -75,8 +74,8 @@ CREATE TABLE "kanpus_group" (
 
 CREATE TABLE "kanpus_user_has_group" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES kanpus_user(id),
-    group_id INT NOT NULL REFERENCES kanpus_group(id),
+    user_id INT NOT NULL REFERENCES kanpus_user(id) ON DELETE CASCADE,
+    group_id INT NOT NULL REFERENCES kanpus_group(id) ON DELETE CASCADE,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 

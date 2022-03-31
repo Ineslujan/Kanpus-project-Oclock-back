@@ -2,3 +2,4 @@
 %project=kanpus
 
 init 2022-03-30T13:02:01Z deldon <r.deldon@gmail.com> # initialization of database
+constraint_m_to_m 2022-03-31T11:51:35Z deldon <r.deldon@gmail.com> # constraint many to many tables exclude same value combination in 2 rows
