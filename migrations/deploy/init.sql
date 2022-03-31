@@ -15,7 +15,7 @@ CREATE TABLE "kanpus_place" (
 
 CREATE TABLE "kanpus_event" (
     id INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name nametext NOT NULL,
+    name TEXT NOT NULL,
     address TEXT,
     note TEXT,
     equipment TEXT,
