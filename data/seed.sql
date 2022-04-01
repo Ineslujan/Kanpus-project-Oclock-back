@@ -199,6 +199,19 @@ INSERT INTO kanpus_user (
 	null
 ),
 (
+	'Remy',
+	'Lalouche',
+	'145 avenue René Coty 84000 AVIGNON',
+	'+33682564713',
+	'remy.lallouche@gmail.com',
+	'123456789',
+	'flalouche.jpg',
+	'#269987',
+	'former',
+	false,
+	null
+),
+(
 	'Jean',
 	'Moulin',
 	'26 rue michel patoulachy 84000 AVIGNON',
@@ -236,6 +249,19 @@ INSERT INTO kanpus_user (
 	'trainee',
 	null,
 	2
+),
+(
+	'Romain',
+	'Beauroger',
+	'8 place de l`abreuvoir rue michel patoulachy 84000 AVIGNON',
+	'+33699765426',
+	'romain@gmail.com',
+	'123456789',
+	'rjean.jpg',
+	'#269987',
+	'trainee',
+	null,
+	2
 );
 --kanpus_group
 INSERT INTO kanpus_group (name) VALUES
@@ -248,23 +274,49 @@ INSERT INTO kanpus_group (name) VALUES
 ('Easy6');
 
 --kanpus_user_has_event
---INSERT INTO kanpus_user_has_event (
--- 	user_id,
--- 	event_id
--- ) VALUES 
---     (2,2),
+INSERT INTO kanpus_user_has_event (
+	user_id,
+	event_id
+) VALUES 
+    (5,1),
+    (6,1),
+    (7,1),
+    (3,1),
+    (5,2),
+    (6,2),
+    (7,2),
+    (1,2),
+    (3,2),
+    (5,3),
+    (1,3),
+    (6,4),
+    (2,4),
+    (7,5),
+    (3,5),
+    (7,6),
+    (1,6),
+    (5,7),
+    (2,7),
+    (6,8),
+    (3,8),
+    (6,9),
+    (1,9),
+    (7,10),
+    (2,10),
+    (5,11),
+    (3,11),
+    (4,12)
+;
 
--- ;
 
-
--- --kanpus_user_has_group
--- INSERT INTO kanpus_user_has_group (
--- 	user_id,
--- 	group_id
--- ) VALUES 
--- (4,1),
--- (4,1),
--- (4,1),
+--kanpus_user_has_group
+INSERT INTO kanpus_user_has_group (
+	user_id,
+	group_id
+) VALUES 
+(5,1),
+(6,1),
+(7,1);
 
 
 
