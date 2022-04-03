@@ -4,3 +4,4 @@
 init 2022-03-30T13:02:01Z deldon <r.deldon@gmail.com> # initialization of database
 constraint_m_to_m 2022-03-31T11:51:35Z deldon <r.deldon@gmail.com> # constraint many to many tables exclude same value combination in 2 rows
 organizer_view 2022-04-01T13:42:36Z deldon <r.deldon@gmail.com> # SQL view organizer
+add_event_function 2022-04-03T12:11:17Z deldon <r.deldon@gmail.com> # adding function insert into from a json
