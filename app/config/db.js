@@ -1,7 +1,27 @@
 const { Pool } = require('pg');
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-});
+const config = {
+    connectionString: process.env.DATABASE_URL,
+};
 
-module.exports = pool;
+if (process.env.NODE_ENV === 'production') {
+    
+    config.ssl = {
+        rejectUnauthorized: false,
+    };
+}
+
+const pool = new Pool(config);
+
+module.exports = {
+    
+    originalClient: pool,
+
+   
+    async query(...params) {
+        console.log(...params);
+
+       
+        return this.originalClient.query(...params);
+    },
+};
