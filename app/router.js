@@ -5,7 +5,7 @@ const controllerHandler = require('./helpers/controllerHandler');
 
 const eventController = require('./controllers/eventController');
 
-router.get('/', controllerHandler(eventController.getOrganizer));
-
+router.get('/organizer/event/:date', controllerHandler(eventController.getOrganizer));
+router.post('/event/check-date', controllerHandler(eventController.checkIsAvailabe))
 
 module.exports = router;
