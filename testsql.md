@@ -1,3 +1,7 @@
+```shell
+git push heroku API-init:main
+```
+
 ```SQL
 
 SELECT 

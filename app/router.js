@@ -8,5 +8,6 @@ const eventController = require('./controllers/eventController');
 router.get('/organizer/event/:date', controllerHandler(eventController.getOrganizer));
 router.post('/event/check-date', controllerHandler(eventController.checkIsAvailabe))
 router.post('/event/', controllerHandler(eventController.addEvent))
+router.get("/event/user", controllerHandler(eventController.getUserByPromoAndGroup))
 
 module.exports = router;
