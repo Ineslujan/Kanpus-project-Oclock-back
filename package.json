@@ -1,0 +1,26 @@
+{
+  "name": "projet-gestion-formation-back",
+  "version": "1.0.0",
+  "description": "## Détails du projet",
+  "main": "index.js",
+  "scripts": {
+    "dev": "DEBUG=*,-index:* node-dev index.js --no-notify",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/O-clock-Zagreus/projet-gestion-formation-back.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/O-clock-Zagreus/projet-gestion-formation-back/issues"
+  },
+  "homepage": "https://github.com/O-clock-Zagreus/projet-gestion-formation-back#readme",
+  "dependencies": {
+    "debug": "^4.3.4",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "pg": "^8.7.3"
+  }
+}
