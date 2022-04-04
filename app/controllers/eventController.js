@@ -43,7 +43,8 @@ module.exports = {
     },
 
     getAllEventForUser: async (req, res, next) => {
-        const myCourse = await DataMapper.getAllEventForUser(req.params.user_id,req.params.page_number);
+        const user_id = 1 // Alain for the test
+        const myCourse = await DataMapper.getAllEventForUser(1,req.params.page_number);
         debug('get events for user called');
         if (myCourse) {
             res.json(myCourse);
@@ -57,6 +58,15 @@ module.exports = {
         debug('UPTADE events for user called');
         if (newEvent) {
             res.json(newEvent);
+        } else {
+            next();
+        }
+    },
+    getEventById: async (req, res, next) => {
+        const event = await DataMapper.getEventById(req.params.event_id);
+        debug('GET events by id for user called');
+        if (event) {
+            res.json(event);
         } else {
             next();
         }

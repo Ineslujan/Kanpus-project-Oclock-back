@@ -170,5 +170,31 @@ module.exports = {
     return data;
   },
 
+  async getEventById(user_id) {
+    const query = `
+    SELECT 
+    event_id,
+    name,
+    address,
+    note,
+    equipment,
+    role,
+    start_date,
+    end_date,
+    place_id,
+    trainee,
+    former
+    FROM organizer
+    WHERE event_id = $1`;
+    const values = [user_id];
+
+    const event = (await dataBase.query(query,values)).rows[0];
+    debug(`> UPDATE updateEventById(): ${query}`);
+    if (!event) {
+      throw new ApiError('No data to getUserById', 500);
+    }
+    return event;
+  },
+
 
 };
