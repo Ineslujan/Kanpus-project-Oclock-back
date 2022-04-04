@@ -156,7 +156,18 @@ module.exports = {
       throw new ApiError('No data found for getAllEventForUser', 500);
     }
     return data;
+  },
 
+  async updateEventById(form,event_id) {
+    const query = `SELECT * FROM update_event($1,$2);`;
+    const values = [form,event_id];
+
+    const data = (await dataBase.query(query,values)).rows;
+    debug(`> UPDATE updateEventById(): ${query}`);
+    if (!data) {
+      throw new ApiError('No data to update updateEventById', 500);
+    }
+    return data;
   },
 
 

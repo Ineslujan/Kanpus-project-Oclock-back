@@ -52,4 +52,14 @@ module.exports = {
         }
     },
 
+    updateEventById: async (req, res, next) => {
+        const newEvent = await DataMapper.updateEventById(req.body,req.params.event_id);
+        debug('UPTADE events for user called');
+        if (newEvent) {
+            res.json(newEvent);
+        } else {
+            next();
+        }
+    },
+
 };

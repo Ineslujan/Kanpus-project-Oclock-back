@@ -3,5 +3,5 @@
 BEGIN;
 
 -- XXX Add DDLs here.
-DROP FUNCTION add_event;
+DROP FUNCTION IF EXISTS add_event;
 COMMIT;
