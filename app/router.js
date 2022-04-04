@@ -14,6 +14,7 @@ router.post('/event/', controllerHandler(eventController.addEvent));
 router.get('/event/my_course/:page_number',controllerHandler(eventController.getAllEventForUser));
 router.patch('/event/:event_id', controllerHandler(eventController.updateEventById));
 router.get('/event/:event_id', controllerHandler(eventController.getEventById));
+router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
 // Routes USER
 router.get('/user/event_form', controllerHandler(userController.getUserByPromoAndGroup));

@@ -220,5 +220,16 @@ module.exports = {
     return event;
   },
 
+  async deleteEventById(event_id) {
+    const query = `DELETE FROM kanpus_event WHERE id = $1`;
+    const values = [event_id];
+
+    const event = (await dataBase.query(query,values)).rows;
+    debug(`> DELETE deleteEventById(): ${query}`);
+    if (!event) {
+      throw new ApiError('No data to deleteEventById', 500);
+    }
+    return event;
+  },
 
 };

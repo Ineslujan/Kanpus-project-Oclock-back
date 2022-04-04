@@ -71,5 +71,14 @@ module.exports = {
             next();
         }
     },
+    deleteEventById: async (req, res, next) => {
+        const event = await DataMapper.deleteEventById(req.params.event_id)
+        debug('DELETE events by id for user called');
+        if (event) {
+            res.json({message:`Event :${req.params.event_id} is removed`, id:Number(req.params.event_id)});
+        } else {
+            next();
+        }
+    },
 
 };
