@@ -5,7 +5,6 @@ module.exports = {
 
     getOrganizer: async (req, res, next) => {
 
-
         const organizer = await DataMapper.getOrganizer(req.params.date);
         debug('get organizer called');
         if (organizer) {
@@ -32,9 +31,8 @@ module.exports = {
     },
 
     addEvent: async (req, res, next) => {
-        console.log(req.body);
+
         const newEvent = await DataMapper.addEvent(req.body)
-       
         debug('adding new event and user called');
         if (newEvent) {
             res.json({msg:"post ok"})
@@ -51,8 +49,7 @@ module.exports = {
             res.json({
                 promos:userHasPromo,
                 group:userHasGroup
-
-            })
+            });
         } else {
             next();
         }
