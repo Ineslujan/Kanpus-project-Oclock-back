@@ -1,5 +1,7 @@
 ```shell
 git push heroku API-init:main
+
+psql -d kanpus -f ./data/seed.sql
 ```
 
 ```SQL

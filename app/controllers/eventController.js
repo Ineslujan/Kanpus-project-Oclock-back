@@ -44,7 +44,7 @@ module.exports = {
 
     getAllEventForUser: async (req, res, next) => {
 
-        const myCourse = await DataMapper.getAllEventForUser(req.params.user_id)
+        const myCourse = await DataMapper.getAllEventForUser(req.params.user_id,req.params.page_number)
         debug('get events for user called');
         if (myCourse) {
             res.json(myCourse);
