@@ -16,8 +16,8 @@ module.exports = {
 
     checkIsAvailabe: async (req, res, next) => {
 
-        const former = await DataMapper.checkIsAvailabeFormer(req.body.start_date, req.body.end_date)
-        const place = await DataMapper.checkIsAvailabePlace(req.body.start_date, req.body.end_date)
+        const former = await DataMapper.checkIsAvailabeFormer(req.body.start_date, req.body.end_date);
+        const place = await DataMapper.checkIsAvailabePlace(req.body.start_date, req.body.end_date);
         debug('Check former and place is availabe called');
         if (former && place) {
             res.json({
@@ -32,7 +32,7 @@ module.exports = {
 
     addEvent: async (req, res, next) => {
 
-        const newEvent = await DataMapper.addEvent(req.body)
+        const newEvent = await DataMapper.addEvent(req.body);
         debug('adding new event and user called');
         if (newEvent) {
             res.json({msg:"post ok"})
@@ -43,8 +43,7 @@ module.exports = {
     },
 
     getAllEventForUser: async (req, res, next) => {
-
-        const myCourse = await DataMapper.getAllEventForUser(req.params.user_id,req.params.page_number)
+        const myCourse = await DataMapper.getAllEventForUser(req.params.user_id,req.params.page_number);
         debug('get events for user called');
         if (myCourse) {
             res.json(myCourse);
@@ -52,19 +51,5 @@ module.exports = {
             next();
         }
     },
-
-    getUserByPromoAndGroup: async (req,res,next) => {
-        const userHasPromo = await DataMapper.getUserGroupByPromo();
-        const userHasGroup = await DataMapper.getUserGroupByGroup();
-        if (userHasGroup && userHasPromo){
-            res.json({
-                promos:userHasPromo,
-                group:userHasGroup
-            });
-        } else {
-            next();
-        }
-
-    }
 
 };

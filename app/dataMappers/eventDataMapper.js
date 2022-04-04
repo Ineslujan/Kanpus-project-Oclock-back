@@ -1,4 +1,4 @@
-const debug = require('debug')('dataMapper');
+const debug = require('debug')('eventDataMapper');
 const dataBase = require('../config/db');
 const ApiError = require('../errors/apiError');
 
@@ -19,8 +19,8 @@ module.exports = {
 			OR
 			$1::timestamptz + '4 23:59:00'::interval
 			BETWEEN organizer.start_date AND organizer.end_date 
-		)`;
-    const value = [date]
+		);`;
+    const value = [date];
     const data = (await dataBase.query(query, value)).rows;
 
 
@@ -64,9 +64,9 @@ module.exports = {
         )AS is_availabe ON is_availabe.id = kanpus_user.id 
         WHERE kanpus_user.role = 'former'
         GROUP BY kanpus_user.id
-        ORDER BY kanpus_user.is_permanent DESC`;
+        ORDER BY kanpus_user.is_permanent DESC;`;
 
-    const value = [startDate, endDate]
+    const value = [startDate, endDate];
 
     const data = (await dataBase.query(query, value)).rows;
 
@@ -75,7 +75,7 @@ module.exports = {
       throw new ApiError('No data found for former', 500);
     }
 
-    return data
+    return data;
   },
 
   async checkIsAvailabePlace(startDate, endDate) {
@@ -106,8 +106,8 @@ module.exports = {
                 BETWEEN kanpus_event.start_date AND (kanpus_event.start_date + kanpus_event.duration)
             )
     ) AS is_availabe ON is_availabe.place_id = kanpus_place.id 
-    GROUP BY kanpus_place.id`;
-    const value = [startDate, endDate]
+    GROUP BY kanpus_place.id;`;
+    const value = [startDate, endDate];
 
     const data = (await dataBase.query(query, value)).rows;
 
@@ -116,62 +116,26 @@ module.exports = {
       throw new ApiError('No data found for Place', 500);
     }
 
-    return data
+    return data;
   },
+
   async addEvent(form) {
     console.log(form);
-    const user = form.trainee.concat(form.former)
+    const user = form.trainee.concat(form.former);
     const query = `SELECT * FROM add_event($1);`;
-    const value = [form]
+    const value = [form];
 
     const data = (await dataBase.query(query, value)).rows[0];
 
     user.forEach(async (e) => {
 
-      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2)`;
-      const value = [e, data.id]
+      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2);`;
+      const value = [e, data.id];
 
       const result = (await dataBase.query(query, value)).rows[0];
       
     })
-    return true
-  },
-  async getUserGroupByPromo(){
-
-    const query = 
-    `SELECT 
-    kanpus_promo.name AS name,
-    COALESCE(json_agg(json_build_object('id',kanpus_user.id,'firstname',kanpus_user.firstname,'lastname',kanpus_user.lastname)) FILTER (WHERE kanpus_user.lastname IS NOT NULL), '[]') AS trainee
-    FROM kanpus_user
-    JOIN kanpus_promo ON kanpus_user.promo_id = kanpus_promo.id
-    WHERE kanpus_user.role = 'trainee'
-    GROUP BY kanpus_promo.name;`;
-    const data = (await dataBase.query(query)).rows;
-    debug(`> getUserGroupByPromo(): ${query}`);
-    if (!data) {
-      throw new ApiError('No data found for getUserGroupByPromo()', 500);
-    }
-    return data;
-
-  },
-  async getUserGroupByGroup(){
-    
-    const query = 
-    `SELECT 
-    kanpus_group.name,
-    COALESCE(json_agg(json_build_object('id',kanpus_user.id,'firstname',kanpus_user.firstname,'lastname',kanpus_user.lastname)) FILTER (WHERE kanpus_user.lastname IS NOT NULL), '[]') AS trainee
-    FROM kanpus_user
-    JOIN kanpus_user_has_group ON kanpus_user_has_group.user_id = kanpus_user.id
-    JOIN kanpus_group ON kanpus_user_has_group.group_id = kanpus_group.id
-    WHERE kanpus_user.role = 'trainee'
-    GROUP BY kanpus_group.name;`;
-    const data = (await dataBase.query(query)).rows;
-    debug(`> getUserGroupByGroup(): ${query}`);
-    if (!data) {
-      throw new ApiError('No data found for getUserGroupByGroup()', 500);
-    }
-    return data;
-
+    return true;
   },
 
   async getAllEventForUser(user_id,page_number) {
@@ -183,7 +147,7 @@ module.exports = {
       AND '2021-09-27'::timestamptz < end_date
       ORDER BY start_date
       OFFSET $3
-      FETCH NEXT $2 ROWS ONLY;`
+      FETCH NEXT $2 ROWS ONLY;`;
     const values = [user_id,pageSize,pageOffset];
 
     const data = (await dataBase.query(query,values)).rows;
@@ -192,26 +156,8 @@ module.exports = {
       throw new ApiError('No data found for getAllEventForUser', 500);
     }
     return data;
+
   },
 
-// //  PageNumber INTEGER = NULL,
-//  PageSize INTEGER = NULL
-//  )
-//  RETURNS SETOF organizer AS
-//  $BODY$
-//  DECLARE
-//   PageOffset INTEGER :=0;
-//  BEGIN
-//  PageOffset := ((PageNumber-1) * PageSize);
-//   RETURN QUERY
-//    SELECT *
-//    FROM organizer
-//    WHERE start_date = '2021-09-30 08:45:00+02'
-//    ORDER BY event_id
-//    OFFSET PageOffset
-//    FETCH NEXT PageSize ROWS ONLY;
-// END;
-// $BODY$
-// LANGUAGE plpgsql;
 
-}
+};
