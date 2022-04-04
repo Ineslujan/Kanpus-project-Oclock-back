@@ -172,7 +172,17 @@ module.exports = {
     }
     return data;
 
-  }
+  },
+
+  async getAllEventForUser(user_id) {
+    const query = `SELECT * FROM my_course WHERE user_id = $1`
+    const data = (await dataBase.query(query, [user_id])).rows;
+    debug(`> getAllEventForUser(): ${query}`);
+    if (!data) {
+      throw new ApiError('No data found for getAllEventForUser', 500);
+    }
+    return data;
+  },
 
 
 

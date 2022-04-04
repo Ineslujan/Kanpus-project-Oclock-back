@@ -42,6 +42,17 @@ module.exports = {
 
     },
 
+    getAllEventForUser: async (req, res, next) => {
+
+        const myCourse = await DataMapper.getAllEventForUser(req.params.user_id)
+        debug('get events for user called');
+        if (myCourse) {
+            res.json(myCourse);
+        } else {
+            next();
+        }
+    },
+
     getUserByPromoAndGroup: async (req,res,next) => {
         const userHasPromo = await DataMapper.getUserGroupByPromo();
         const userHasGroup = await DataMapper.getUserGroupByGroup();
