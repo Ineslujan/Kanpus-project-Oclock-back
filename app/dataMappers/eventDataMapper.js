@@ -126,16 +126,22 @@ module.exports = {
     const value = [form];
 
     const data = (await dataBase.query(query, value)).rows[0];
+    console.log("data",data);
+    const resultUsers = [];
+    for(const e of user){
 
-    user.forEach(async (e) => {
-
-      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2);`;
+      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2) RETURNING *;`;
       const value = [e, data.id];
 
       const result = (await dataBase.query(query, value)).rows[0];
       
-    })
-    return true;
+      resultUsers.push(result)
+    }
+
+    return {
+      data,
+      resultUsers
+    };
   },
 
   async getAllEventForUser(user_id,page_number) {
@@ -159,15 +165,33 @@ module.exports = {
   },
 
   async updateEventById(form,event_id) {
-    const query = `SELECT * FROM update_event($1,$2);`;
-    const values = [form,event_id];
 
+    const query = `SELECT * FROM update_event($1,$2);`;
+    const values = [form,Number(event_id)];
     const data = (await dataBase.query(query,values)).rows;
-    debug(`> UPDATE updateEventById(): ${query}`);
+    //debug(`> UPDATE updateEventById(): ${query}`);
+
+    const queryDelete = `DELETE FROM kanpus_user_has_event WHERE event_id = $1;`;
+    const valuesDelete = [event_id];
+    await dataBase.query(queryDelete,valuesDelete);
+    //debug(`> DELETE USER FOR updateEventById(): ${queryDelete}`);
+
+    const user = form.trainee.concat(form.former);
+    console.log("all user",user);
+    const resultUsers = [];
+    for(const e of user){
+
+      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2) RETURNING *;`;
+      const value = [e, Number(event_id)];
+      const result = (await dataBase.query(query, value)).rows[0];
+      
+      resultUsers.push(result)
+    }
+
     if (!data) {
       throw new ApiError('No data to update updateEventById', 500);
     }
-    return data;
+    return {data,resultUsers};
   },
 
   async getEventById(user_id) {

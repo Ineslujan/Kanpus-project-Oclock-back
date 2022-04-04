@@ -35,7 +35,7 @@ module.exports = {
         const newEvent = await DataMapper.addEvent(req.body);
         debug('adding new event and user called');
         if (newEvent) {
-            res.json({msg:"post ok"})
+            res.json(newEvent)
         } else {
             next();
         }
