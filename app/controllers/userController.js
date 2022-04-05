@@ -4,8 +4,8 @@ const DataMapper = require('../dataMappers/userDataMapper');
 module.exports = {
 
     getUserByPromoAndGroup: async (req,res,next) => {
-        const userHasPromo = await DataMapper.getUserGroupByPromo();
-        const userHasGroup = await DataMapper.getUserGroupByGroup()
+        const userHasPromo = await DataMapper.getAllTraineeByPromo();
+        const userHasGroup = await DataMapper.getAllTraineeByGroup()
         if (userHasGroup && userHasPromo){
             res.json({
                 promos:userHasPromo,

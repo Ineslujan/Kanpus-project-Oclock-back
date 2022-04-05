@@ -3,7 +3,7 @@ const dataBase = require('../config/db');
 const ApiError = require('../errors/apiError');
 
 module.exports = {
-    async getUserGroupByPromo(){
+    async getAllTraineeByPromo(){
 
         const query = 
         `SELECT 
@@ -14,14 +14,14 @@ module.exports = {
         WHERE kanpus_user.role = 'trainee'
         GROUP BY kanpus_promo.name;`;
         const data = (await dataBase.query(query)).rows;
-        debug(`> getUserGroupByPromo(): ${query}`);
+        debug(`> getAllTraineeByPromo(): ${query}`);
         if (!data) {
-          throw new ApiError('No data found for getUserGroupByPromo()', 500);
+          throw new ApiError('No data found for getAllTraineeByPromo()', 500);
         }
         return data;
     
       },
-      async getUserGroupByGroup(){
+      async getAllTraineeByGroup(){
     
         const query = 
         `SELECT 
@@ -33,9 +33,9 @@ module.exports = {
         WHERE kanpus_user.role = 'trainee'
         GROUP BY kanpus_group.name;`;
         const data = (await dataBase.query(query)).rows;
-        debug(`> getUserGroupByGroup(): ${query}`);
+        debug(`> getAllTraineeByGroup(): ${query}`);
         if (!data) {
-          throw new ApiError('No data found for getUserGroupByGroup()', 500);
+          throw new ApiError('No data found for getAllTraineeByGroup()', 500);
         }
         return data;
     
