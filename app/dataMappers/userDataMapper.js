@@ -56,4 +56,38 @@ module.exports = {
         
         return data;
       },
+
+      async getUserByGroup() {
+
+        const query = `
+          SELECT 
+          CASE 
+              WHEN kanpus_promo.name IS NULL THEN 'Sans promo'
+              ELSE kanpus_promo.name
+          END AS promo,
+          COALESCE(json_agg(json_build_object(
+                'id',kanpus_user.id,
+                'firstname',kanpus_user.firstname,
+                'lastname',kanpus_user.lastname,
+                'address',kanpus_user.address,
+                'phone_number',kanpus_user.phone_number,
+                'email',kanpus_user.email,
+                'image',kanpus_user.phone_number,
+                'promo' ,kanpus_promo.name
+          )) 
+        FILTER (WHERE kanpus_user.firstname IS NOT NULL), '[]') AS trainee
+        FROM kanpus_user
+        FULL JOIN kanpus_promo ON kanpus_promo.id = kanpus_user.promo_id
+        WHERE role = 'trainee'
+        GROUP BY kanpus_promo.name
+        `;
+    
+        const data = (await dataBase.query(query)).rows;
+        debug(`> getUserByGroup(): ${query}`);
+        if (!data) {
+          throw new ApiError('No data found for > getUserByGroup()', 500);
+        }
+        
+        return data;
+      },
 };

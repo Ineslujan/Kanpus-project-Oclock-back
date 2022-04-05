@@ -31,10 +31,8 @@ CREATE OR REPLACE FUNCTION update_user(d json,user_id int) RETURNS kanpus_user A
 		address = (d->>'address')::text,
 		phone_number = (d->>'phone_number')::text,
         email = (d->>'email')::text,
-		password = (d->>'password')::text,
         image = (d->>'image')::text,
 		color = (d->>'color')::text,
-		role = (d->>'role')::text,
 		is_permanent = (d->>'is_permanent')::boolean,
 		promo_id = (d->>'promo_id')::int,
 		updated_at = NOW()

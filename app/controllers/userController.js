@@ -18,6 +18,17 @@ module.exports = {
 
     },
 
+    getUserByGroup: async (req,res,next) => {
+        const users = await DataMapper.getUserByGroup();
+
+        if (users){
+            res.json(users);
+        } else {
+            next();
+        }
+
+    },
+
     add_user: async (req,res,next) => {
         console.log(req.body);
         console.log('role',req.params.role);
