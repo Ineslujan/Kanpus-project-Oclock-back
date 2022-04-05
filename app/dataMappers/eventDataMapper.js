@@ -24,7 +24,7 @@ module.exports = {
     const data = (await dataBase.query(query, value)).rows;
 
 
-    debug(`> getOrganizer(): ${query}`);
+    debug(`> getOrganizer()`);
     if (!data) {
       throw new ApiError('No data found for getOrganizer', 500);
     }
@@ -72,7 +72,7 @@ module.exports = {
 
     debug(`> checkIsAvailabeFormer()`);
     if (!data) {
-      throw new ApiError('No data found for former', 500);
+      throw new ApiError('No data found for checkIsAvailabeFormer()', 500);
     }
 
     return data;
@@ -113,20 +113,18 @@ module.exports = {
 
     debug(`> checkIsAvailabePlace()`);
     if (!data) {
-      throw new ApiError('No data found for Place', 500);
+      throw new ApiError('No data found for checkIsAvailabePlace()', 500);
     }
 
     return data;
   },
 
   async addEvent(form) {
-    console.log(form);
     const user = form.trainee.concat(form.former);
     const query = `SELECT * FROM add_event($1);`;
     const value = [form];
 
     const data = (await dataBase.query(query, value)).rows[0];
-    console.log("data",data);
     const resultUsers = [];
     for(const e of user){
 
@@ -137,7 +135,7 @@ module.exports = {
       
       resultUsers.push(result)
     }
-
+    debug(`> addEvent()`);
     return {
       data,
       resultUsers
@@ -157,7 +155,7 @@ module.exports = {
     const values = [user_id,pageSize,pageOffset];
 
     const data = (await dataBase.query(query,values)).rows;
-    debug(`> getAllEventForUser(): ${query}`);
+    debug(`> getAllEventForUser()`);
     if (!data) {
       throw new ApiError('No data found for getAllEventForUser', 500);
     }
@@ -187,7 +185,7 @@ module.exports = {
       
       resultUsers.push(result)
     }
-
+    debug(`> updateEventById()`);
     if (!data) {
       throw new ApiError('No data to update updateEventById', 500);
     }
@@ -213,9 +211,9 @@ module.exports = {
     const values = [user_id];
 
     const event = (await dataBase.query(query,values)).rows[0];
-    debug(`> UPDATE updateEventById(): ${query}`);
+    debug(`> getEventById()`);
     if (!event) {
-      throw new ApiError('No data to getUserById', 500);
+      throw new ApiError('No data to getEventById', 500);
     }
     return event;
   },
@@ -225,7 +223,7 @@ module.exports = {
     const values = [event_id];
 
     const event = (await dataBase.query(query,values)).rows;
-    debug(`> DELETE deleteEventById(): ${query}`);
+    debug(`> deleteEventById()`);
     if (!event) {
       throw new ApiError('No data to deleteEventById', 500);
     }

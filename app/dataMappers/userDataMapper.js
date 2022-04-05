@@ -14,7 +14,7 @@ module.exports = {
         WHERE kanpus_user.role = 'trainee'
         GROUP BY kanpus_promo.name;`;
         const data = (await dataBase.query(query)).rows;
-        debug(`> getUserGroupByPromo(): ${query}`);
+        debug(`> getUserGroupByPromo()`);
         if (!data) {
           throw new ApiError('No data found for getUserGroupByPromo()', 500);
         }
@@ -49,7 +49,7 @@ module.exports = {
         ORDER BY is_permanent DESC
     ;`;
         const data = (await dataBase.query(query)).rows;
-        debug(`> getUserByIsPermanent(): ${query}`);
+        debug(`> getUserByIsPermanent()`);
         if (!data) {
           throw new ApiError('No data found for getUserByIsPermanent()', 500);
         }
@@ -69,7 +69,7 @@ module.exports = {
         WHERE kanpus_user.role = 'trainee'
         GROUP BY kanpus_group.name;`;
         const data = (await dataBase.query(query)).rows;
-        debug(`> getUserGroupByGroup(): ${query}`);
+        debug(`> getUserGroupByGroup()`);
         if (!data) {
           throw new ApiError('No data found for getUserGroupByGroup()', 500);
         }
@@ -79,13 +79,11 @@ module.exports = {
 
       async addUser(form) {
 
-        console.log(form);
-
         const query = `SELECT * FROM add_user($1);`;
         const value = [form];
     
         const data = (await dataBase.query(query, value)).rows[0];
-        debug(`> addUser(): ${query}`);
+        debug(`> addUser()`);
         if (!data) {
           throw new ApiError('No data found for > addUser()', 500);
         }
@@ -119,7 +117,7 @@ module.exports = {
         `;
     
         const data = (await dataBase.query(query)).rows;
-        debug(`> getUserByGroup(): ${query}`);
+        debug(`> getUserByGroup()`);
         if (!data) {
           throw new ApiError('No data found for > getUserByGroup()', 500);
         }

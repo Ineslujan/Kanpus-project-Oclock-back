@@ -8,6 +8,7 @@ module.exports = {
         const userHasPromo = await DataMapper.getUserGroupByPromo();
         const userHasGroup = await DataMapper.getUserGroupByGroup();
         if (userHasGroup && userHasPromo){
+            debug(`> getUserByPromoAndGroup()`);
             res.json({
                 promos:userHasPromo,
                 group:userHasGroup
@@ -22,6 +23,7 @@ module.exports = {
         const users = await DataMapper.getUserByGroup();
 
         if (users){
+            debug(`> getUserByGroup()`);
             res.json(users);
         } else {
             next();
@@ -33,6 +35,7 @@ module.exports = {
         const users = await DataMapper.getUserByIsPermanent();
 
         if (users){
+            debug(`> getUserByIsPermanent()`);
             res.json(users);
         } else {
             next();
@@ -40,14 +43,11 @@ module.exports = {
 
     },
 
-    add_user: async (req,res,next) => {
-        console.log(req.body);
-        console.log('role',req.params.role);
+    adduser: async (req,res,next) => {
         
         if(req.body.new_password == req.body.confirm_new_password){
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(req.body.new_password, salt);
-
 
             let form = {}
             if(req.params.role == 'former'){
@@ -86,6 +86,7 @@ module.exports = {
             }
             const newUser = await DataMapper.addUser(form);
             if (newUser){
+                debug(`> add_user() ${form.role}`);
                 res.json(newUser);
             } else {
                 next();
