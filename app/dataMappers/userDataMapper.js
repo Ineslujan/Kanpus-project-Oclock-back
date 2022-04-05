@@ -21,6 +21,42 @@ module.exports = {
         return data;
     
       },
+
+      async getUserByIsPermanent(){
+
+        const query = 
+        `SELECT 
+        CASE 
+          WHEN kanpus_user.is_permanent IS true THEN 'Titulaires'
+          WHEN kanpus_user.is_permanent IS false THEN 'Intervenants'
+          ELSE 'null'
+        END AS is_permanent,
+        COALESCE(json_agg(json_build_object(
+            'id',kanpus_user.id,
+            'firstname',kanpus_user.firstname,
+            'lastname',kanpus_user.lastname,
+            'address',kanpus_user.address,
+            'phone_number',kanpus_user.phone_number,
+            'email',kanpus_user.email,
+            'image',kanpus_user.image,
+            'color',kanpus_user.color,
+            'is_permanent',kanpus_user.is_permanent
+        )) 
+        FILTER (WHERE kanpus_user.firstname IS NOT NULL), '[]') AS former
+        FROM kanpus_user
+        WHERE kanpus_user.role = 'former'
+        GROUP BY kanpus_user.is_permanent
+        ORDER BY is_permanent DESC
+    ;`;
+        const data = (await dataBase.query(query)).rows;
+        debug(`> getUserByIsPermanent(): ${query}`);
+        if (!data) {
+          throw new ApiError('No data found for getUserByIsPermanent()', 500);
+        }
+        return data;
+    
+      },
+
       async getUserGroupByGroup(){
     
         const query = 

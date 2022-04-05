@@ -29,6 +29,17 @@ module.exports = {
 
     },
 
+    getUserByIsPermanent: async (req,res,next) => {
+        const users = await DataMapper.getUserByIsPermanent();
+
+        if (users){
+            res.json(users);
+        } else {
+            next();
+        }
+
+    },
+
     add_user: async (req,res,next) => {
         console.log(req.body);
         console.log('role',req.params.role);

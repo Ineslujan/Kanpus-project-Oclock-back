@@ -19,6 +19,7 @@ router.delete('/event/:event_id', controllerHandler(eventController.deleteEventB
 // Routes USER
 router.get('/user/event_form/', controllerHandler(userController.getUserByPromoAndGroup));
 router.get('/user/trainee/', controllerHandler(userController.getUserByGroup));
+router.get('/user/former', controllerHandler(userController.getUserByIsPermanent));
 router.post('/user/:role/',controllerHandler(userController.add_user));
 
 // Routes PLACE
