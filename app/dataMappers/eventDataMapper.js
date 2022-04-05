@@ -194,24 +194,5 @@ module.exports = {
     return data;
   },
 
-// //  PageNumber INTEGER = NULL,
-//  PageSize INTEGER = NULL
-//  )
-//  RETURNS SETOF organizer AS
-//  $BODY$
-//  DECLARE
-//   PageOffset INTEGER :=0;
-//  BEGIN
-//  PageOffset := ((PageNumber-1) * PageSize);
-//   RETURN QUERY
-//    SELECT *
-//    FROM organizer
-//    WHERE start_date = '2021-09-30 08:45:00+02'
-//    ORDER BY event_id
-//    OFFSET PageOffset
-//    FETCH NEXT PageSize ROWS ONLY;
-// END;
-// $BODY$
-// LANGUAGE plpgsql;
 
 }
