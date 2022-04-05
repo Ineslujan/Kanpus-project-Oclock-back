@@ -7,7 +7,8 @@ INSERT INTO kanpus_place (name,position) VALUES
 ('Box 1',4),
 ('Box 2',5),
 ('Box 3',6),
-('Salle de cours',3);
+('Salle de cours',3),
+('Extérieur',7);
 
 --kanpus_event
 INSERT INTO kanpus_event (

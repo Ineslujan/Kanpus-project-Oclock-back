@@ -17,10 +17,12 @@ router.get('/event/:event_id', controllerHandler(eventController.getEventById));
 router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
 // Routes USER
-router.get('/user/event_form', controllerHandler(userController.getUserByPromoAndGroup));
+router.get('/user/event_form/', controllerHandler(userController.getUserByPromoAndGroup));
+router.post('/user/:role/',controllerHandler(userController.add_user));
 
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace))
 
+// 
 
 module.exports = router;

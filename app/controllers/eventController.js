@@ -62,6 +62,7 @@ module.exports = {
             next();
         }
     },
+
     getEventById: async (req, res, next) => {
         const event = await DataMapper.getEventById(req.params.event_id);
         debug('GET events by id for user called');
@@ -71,6 +72,7 @@ module.exports = {
             next();
         }
     },
+    
     deleteEventById: async (req, res, next) => {
         const event = await DataMapper.deleteEventById(req.params.event_id)
         debug('DELETE events by id for user called');
