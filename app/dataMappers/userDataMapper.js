@@ -40,4 +40,20 @@ module.exports = {
         return data;
     
       },
+
+      async addUser(form) {
+
+        console.log(form);
+
+        const query = `SELECT * FROM add_user($1);`;
+        const value = [form];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> addUser(): ${query}`);
+        if (!data) {
+          throw new ApiError('No data found for > addUser()', 500);
+        }
+        
+        return data;
+      },
 };
