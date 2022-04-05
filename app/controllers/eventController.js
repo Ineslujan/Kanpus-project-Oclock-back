@@ -6,7 +6,7 @@ module.exports = {
     getOrganizer: async (req, res, next) => {
 
         const organizer = await DataMapper.getOrganizer(req.params.date);
-        debug('get organizer called');
+        debug(' > getOrganizer()');
         if (organizer) {
             res.json(organizer);
         } else {
@@ -18,7 +18,7 @@ module.exports = {
 
         const former = await DataMapper.checkIsAvailabeFormer(req.body.start_date, req.body.end_date);
         const place = await DataMapper.checkIsAvailabePlace(req.body.start_date, req.body.end_date);
-        debug('Check former and place is availabe called');
+        debug(' > checkIsAvailabe()');
         if (former && place) {
             res.json({
                 former,
@@ -33,7 +33,7 @@ module.exports = {
     addEvent: async (req, res, next) => {
 
         const newEvent = await DataMapper.addEvent(req.body);
-        debug('adding new event and user called');
+        debug(' > addEvent()');
         if (newEvent) {
             res.json(newEvent)
         } else {
@@ -45,7 +45,7 @@ module.exports = {
     getAllEventForUser: async (req, res, next) => {
         const user_id = 1 // Alain for the test
         const myCourse = await DataMapper.getAllEventForUser(1,req.params.page_number);
-        debug('get events for user called');
+        debug(' > getAllEventForUser()');
         if (myCourse) {
             res.json(myCourse);
         } else {
@@ -55,7 +55,7 @@ module.exports = {
 
     updateEventById: async (req, res, next) => {
         const newEvent = await DataMapper.updateEventById(req.body,req.params.event_id);
-        debug('UPTADE events for user called');
+        debug(' > updateEventById()');
         if (newEvent) {
             res.json(newEvent);
         } else {
@@ -65,7 +65,7 @@ module.exports = {
 
     getEventById: async (req, res, next) => {
         const event = await DataMapper.getEventById(req.params.event_id);
-        debug('GET events by id for user called');
+        debug(' > getEventById()');
         if (event) {
             res.json(event);
         } else {
@@ -75,7 +75,7 @@ module.exports = {
     
     deleteEventById: async (req, res, next) => {
         const event = await DataMapper.deleteEventById(req.params.event_id)
-        debug('DELETE events by id for user called');
+        debug(' > deleteEventById()');
         if (event) {
             res.json({message:`Event :${req.params.event_id} is removed`, id:Number(req.params.event_id)});
         } else {
