@@ -1,4 +1,4 @@
-const debug = require('debug')('dataMapper');
+const debug = require('debug')('eventDataMapper');
 const dataBase = require('../config/db');
 const ApiError = require('../errors/apiError');
 
@@ -19,8 +19,8 @@ module.exports = {
 			OR
 			$1::timestamptz + '4 23:59:00'::interval
 			BETWEEN organizer.start_date AND organizer.end_date 
-		)`;
-    const value = [date]
+		);`;
+    const value = [date];
     const data = (await dataBase.query(query, value)).rows;
 
 
@@ -64,9 +64,9 @@ module.exports = {
         )AS is_availabe ON is_availabe.id = kanpus_user.id 
         WHERE kanpus_user.role = 'former'
         GROUP BY kanpus_user.id
-        ORDER BY kanpus_user.is_permanent DESC`;
+        ORDER BY kanpus_user.is_permanent DESC;`;
 
-    const value = [startDate, endDate]
+    const value = [startDate, endDate];
 
     const data = (await dataBase.query(query, value)).rows;
 
@@ -75,7 +75,7 @@ module.exports = {
       throw new ApiError('No data found for former', 500);
     }
 
-    return data
+    return data;
   },
 
   async checkIsAvailabePlace(startDate, endDate) {
@@ -106,8 +106,8 @@ module.exports = {
                 BETWEEN kanpus_event.start_date AND (kanpus_event.start_date + kanpus_event.duration)
             )
     ) AS is_availabe ON is_availabe.place_id = kanpus_place.id 
-    GROUP BY kanpus_place.id`;
-    const value = [startDate, endDate]
+    GROUP BY kanpus_place.id;`;
+    const value = [startDate, endDate];
 
     const data = (await dataBase.query(query, value)).rows;
 
@@ -116,62 +116,32 @@ module.exports = {
       throw new ApiError('No data found for Place', 500);
     }
 
-    return data
+    return data;
   },
+
   async addEvent(form) {
     console.log(form);
-    const user = form.trainee.concat(form.former)
+    const user = form.trainee.concat(form.former);
     const query = `SELECT * FROM add_event($1);`;
-    const value = [form]
+    const value = [form];
 
     const data = (await dataBase.query(query, value)).rows[0];
+    console.log("data",data);
+    const resultUsers = [];
+    for(const e of user){
 
-    user.forEach(async (e) => {
-
-      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2)`;
-      const value = [e, data.id]
+      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2) RETURNING *;`;
+      const value = [e, data.id];
 
       const result = (await dataBase.query(query, value)).rows[0];
       
-    })
-    return true
-  },
-  async getUserGroupByPromo(){
-
-    const query = 
-    `SELECT 
-    kanpus_promo.name AS name,
-    COALESCE(json_agg(json_build_object('id',kanpus_user.id,'firstname',kanpus_user.firstname,'lastname',kanpus_user.lastname)) FILTER (WHERE kanpus_user.lastname IS NOT NULL), '[]') AS trainee
-    FROM kanpus_user
-    JOIN kanpus_promo ON kanpus_user.promo_id = kanpus_promo.id
-    WHERE kanpus_user.role = 'trainee'
-    GROUP BY kanpus_promo.name;`;
-    const data = (await dataBase.query(query)).rows;
-    debug(`> getUserGroupByPromo(): ${query}`);
-    if (!data) {
-      throw new ApiError('No data found for getUserGroupByPromo()', 500);
+      resultUsers.push(result)
     }
-    return data;
 
-  },
-  async getUserGroupByGroup(){
-    
-    const query = 
-    `SELECT 
-    kanpus_group.name,
-    COALESCE(json_agg(json_build_object('id',kanpus_user.id,'firstname',kanpus_user.firstname,'lastname',kanpus_user.lastname)) FILTER (WHERE kanpus_user.lastname IS NOT NULL), '[]') AS trainee
-    FROM kanpus_user
-    JOIN kanpus_user_has_group ON kanpus_user_has_group.user_id = kanpus_user.id
-    JOIN kanpus_group ON kanpus_user_has_group.group_id = kanpus_group.id
-    WHERE kanpus_user.role = 'trainee'
-    GROUP BY kanpus_group.name;`;
-    const data = (await dataBase.query(query)).rows;
-    debug(`> getUserGroupByGroup(): ${query}`);
-    if (!data) {
-      throw new ApiError('No data found for getUserGroupByGroup()', 500);
-    }
-    return data;
-
+    return {
+      data,
+      resultUsers
+    };
   },
 
   async getAllEventForUser(user_id,page_number) {
@@ -183,7 +153,7 @@ module.exports = {
       AND '2021-09-27'::timestamptz < end_date
       ORDER BY start_date
       OFFSET $3
-      FETCH NEXT $2 ROWS ONLY;`
+      FETCH NEXT $2 ROWS ONLY;`;
     const values = [user_id,pageSize,pageOffset];
 
     const data = (await dataBase.query(query,values)).rows;
@@ -194,5 +164,72 @@ module.exports = {
     return data;
   },
 
+  async updateEventById(form,event_id) {
 
-}
+    const query = `SELECT * FROM update_event($1,$2);`;
+    const values = [form,Number(event_id)];
+    const data = (await dataBase.query(query,values)).rows;
+    //debug(`> UPDATE updateEventById(): ${query}`);
+
+    const queryDelete = `DELETE FROM kanpus_user_has_event WHERE event_id = $1;`;
+    const valuesDelete = [event_id];
+    await dataBase.query(queryDelete,valuesDelete);
+    //debug(`> DELETE USER FOR updateEventById(): ${queryDelete}`);
+
+    const user = form.trainee.concat(form.former);
+    console.log("all user",user);
+    const resultUsers = [];
+    for(const e of user){
+
+      const query = `INSERT INTO kanpus_user_has_event (user_id,event_id) VALUES ($1,$2) RETURNING *;`;
+      const value = [e, Number(event_id)];
+      const result = (await dataBase.query(query, value)).rows[0];
+      
+      resultUsers.push(result)
+    }
+
+    if (!data) {
+      throw new ApiError('No data to update updateEventById', 500);
+    }
+    return {data,resultUsers};
+  },
+
+  async getEventById(user_id) {
+    const query = `
+    SELECT 
+    event_id,
+    name,
+    address,
+    note,
+    equipment,
+    role,
+    start_date,
+    end_date,
+    place_id,
+    trainee,
+    former
+    FROM organizer
+    WHERE event_id = $1`;
+    const values = [user_id];
+
+    const event = (await dataBase.query(query,values)).rows[0];
+    debug(`> UPDATE updateEventById(): ${query}`);
+    if (!event) {
+      throw new ApiError('No data to getUserById', 500);
+    }
+    return event;
+  },
+
+  async deleteEventById(event_id) {
+    const query = `DELETE FROM kanpus_event WHERE id = $1`;
+    const values = [event_id];
+
+    const event = (await dataBase.query(query,values)).rows;
+    debug(`> DELETE deleteEventById(): ${query}`);
+    if (!event) {
+      throw new ApiError('No data to deleteEventById', 500);
+    }
+    return event;
+  },
+
+};
