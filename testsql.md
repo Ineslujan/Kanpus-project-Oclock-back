@@ -17,9 +17,9 @@ GET MY-PROFIL
 |--------|----------------------------|--------------------------|
 | UPDATE | /user/former/:user_id      |                    admin |
 | UPDATE | /user/trainee/:user_id     |           admin / former |
+
 | UPDATE | /user/password/            | admin / former / trainee |
-| UPDATE | /user/password/former/:id  |                    admin |
-| UPDATE | /user/password/trainee/:id |                    admin |
+| UPDATE | /user/password/:user_id 	  |                    admin |
 
 
 ```shell

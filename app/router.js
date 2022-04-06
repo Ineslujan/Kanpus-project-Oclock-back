@@ -23,10 +23,13 @@ router.get('/user/former', controllerHandler(userController.getAllFormerByIsPerm
 router.post('/user/:role/',controllerHandler(userController.addUser));
 router.patch('/user/former/:user_id', controllerHandler(userController.updateFormer));
 router.patch('/user/trainee/:user_id', controllerHandler(userController.updateTrainee));
+router.patch('/user/password', controllerHandler(userController.updatePassword));
+router.patch('/user/password/:user_id', controllerHandler(userController.updatePassword));
+router.delete('/user/:user_id', controllerHandler(userController.deleteUser));
 
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace))
 
-// 
+
 
 module.exports = router;

@@ -168,5 +168,57 @@ module.exports = {
         return data;
       },
 
+      async updatePassword(new_password,user_id) {
+
+        const query = `
+        UPDATE kanpus_user
+        SET 
+        password = $1,
+        updated_at = NOW()
+        WHERE id = $2
+        RETURNING id
+      ;`;
+
+        const value = [new_password,user_id];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> updatePassword()`);
+        if (!data) {
+          throw new ApiError('No data found for > updatePassword()', 500);
+        }
+        
+        return data;
+      },
+
+      async getPasswordById(user_id) {
+
+        const query = `SELECT password FROM kanpus_user WHERE id = $1`;
+
+        const value = [user_id];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> getPasswordById()`);
+        if (!data) {
+          throw new ApiError('No data found for > getPasswordById()', 500);
+        }
+        
+        return data;
+      },
+
+      async deleteUser(user_id) {
+
+        const query = `DELETE FROM kanpus_user WHERE id = $1`;
+
+        const value = [user_id];
+    
+        const data = (await dataBase.query(query, value)).rows;
+        debug(`> deleteUser()`);
+        if (!data) {
+          throw new ApiError('No data found for > deleteUser()', 500);
+        }
+        
+        return data;
+      }
+
       
 };
