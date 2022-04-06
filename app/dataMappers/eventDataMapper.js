@@ -31,8 +31,8 @@ module.exports = {
     return data;
   },
 
-  async checkIsAvailabeFormer(startDate, endDate) {
-
+  async checkFormerIsAvailabe(startDate, endDate) {
+    //checkIsAvailabeFormer
     const query = `
     SELECT
     kanpus_user.id AS user_id,
@@ -70,16 +70,16 @@ module.exports = {
 
     const data = (await dataBase.query(query, value)).rows;
 
-    debug(`> checkIsAvailabeFormer()`);
+    debug(`> checkFormerIsAvailabe()`);
     if (!data) {
-      throw new ApiError('No data found for checkIsAvailabeFormer()', 500);
+      throw new ApiError('No data found for checkFormerIsAvailabe()', 500);
     }
 
     return data;
   },
 
-  async checkIsAvailabePlace(startDate, endDate) {
-
+  async checkPlaceIsAvailabe(startDate, endDate) {
+  //checkIsAvailabePlace
     const query = `
     SELECT 
     kanpus_place.id,
@@ -111,9 +111,9 @@ module.exports = {
 
     const data = (await dataBase.query(query, value)).rows;
 
-    debug(`> checkIsAvailabePlace()`);
+    debug(`> checkPlaceIsAvailabe()`);
     if (!data) {
-      throw new ApiError('No data found for checkIsAvailabePlace()', 500);
+      throw new ApiError('No data found for checkPlaceIsAvailabe()', 500);
     }
 
     return data;

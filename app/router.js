@@ -17,9 +17,9 @@ router.get('/event/:event_id', controllerHandler(eventController.getEventById));
 router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
 // Routes USER
-router.get('/user/event_form/', controllerHandler(userController.getUserByPromoAndGroup));
-router.get('/user/trainee/', controllerHandler(userController.getUserByGroup));
-router.get('/user/former', controllerHandler(userController.getUserByIsPermanent));
+router.get('/user/event_form/', controllerHandler(userController.getTraineeByPromoAndGroup));
+router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPromo));
+router.get('/user/former', controllerHandler(userController.getAllFormerByIsPermanent));
 router.post('/user/:role/',controllerHandler(userController.adduser));
 
 // Routes PLACE
