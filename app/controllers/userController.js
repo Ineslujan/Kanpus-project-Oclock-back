@@ -4,11 +4,11 @@ const bcrypt = require('bcrypt');
 
 module.exports = {
 
-    getUserByPromoAndGroup: async (req,res,next) => {
-        const userHasPromo = await DataMapper.getUserGroupByPromo();
-        const userHasGroup = await DataMapper.getUserGroupByGroup();
+    getTraineeByPromoAndGroup: async (req,res,next) => {
+        const userHasPromo = await DataMapper.getAllTraineeWithPromoByPromo();
+        const userHasGroup = await DataMapper.getAllTraineeByGroup();
         if (userHasGroup && userHasPromo){
-            debug(`> getUserByPromoAndGroup()`);
+            debug(`> getTraineeByPromoAndGroup()`);
             res.json({
                 promos:userHasPromo,
                 group:userHasGroup
@@ -19,11 +19,11 @@ module.exports = {
 
     },
 
-    getUserByGroup: async (req,res,next) => {
-        const users = await DataMapper.getUserByGroup();
+    getAllTraineeByPromo: async (req,res,next) => {
+        const users = await DataMapper.getAllTraineeByPromo();
 
         if (users){
-            debug(`> getUserByGroup()`);
+            debug(`> getAllTraineeByPromo()`);
             res.json(users);
         } else {
             next();
@@ -31,11 +31,11 @@ module.exports = {
 
     },
 
-    getUserByIsPermanent: async (req,res,next) => {
-        const users = await DataMapper.getUserByIsPermanent();
+    getAllFormerByIsPermanent: async (req,res,next) => {
+        const users = await DataMapper.getAllFormerByIsPermanent();
 
         if (users){
-            debug(`> getUserByIsPermanent()`);
+            debug(`> getAllFormerByIsPermanent()`);
             res.json(users);
         } else {
             next();
@@ -86,7 +86,7 @@ module.exports = {
             }
             const newUser = await DataMapper.addUser(form);
             if (newUser){
-                debug(`> add_user() ${form.role}`);
+                debug(`> adduser() ${form.role}`);
                 res.json(newUser);
             } else {
                 next();

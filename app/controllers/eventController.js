@@ -16,8 +16,8 @@ module.exports = {
 
     checkIsAvailabe: async (req, res, next) => {
 
-        const former = await DataMapper.checkIsAvailabeFormer(req.body.start_date, req.body.end_date);
-        const place = await DataMapper.checkIsAvailabePlace(req.body.start_date, req.body.end_date);
+        const former = await DataMapper.checkFormerIsAvailabe(req.body.start_date, req.body.end_date);
+        const place = await DataMapper.checkPlaceIsAvailabe(req.body.start_date, req.body.end_date);
         debug(' > checkIsAvailabe()');
         if (former && place) {
             res.json({
