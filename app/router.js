@@ -20,7 +20,9 @@ router.delete('/event/:event_id', controllerHandler(eventController.deleteEventB
 router.get('/user/event_form/', controllerHandler(userController.getTraineeByPromoAndGroup));
 router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPromo));
 router.get('/user/former', controllerHandler(userController.getAllFormerByIsPermanent));
-router.post('/user/:role/',controllerHandler(userController.adduser));
+router.post('/user/:role/',controllerHandler(userController.addUser));
+router.patch('/user/former/:user_id', controllerHandler(userController.updateFormer));
+router.patch('/user/trainee/:user_id', controllerHandler(userController.updateTrainee));
 
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace))

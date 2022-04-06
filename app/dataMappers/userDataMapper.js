@@ -130,5 +130,43 @@ module.exports = {
         return data;
       },
 
+      async updateUser(form,user_id) {
+
+        const query = `SELECT * FROM update_user($1,$2);`;
+        const value = [form, user_id];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> updateUser()`);
+        if (!data) {
+          throw new ApiError('No data found for > updateUser()', 500);
+        }
+        
+        return data;
+      },
+
+      async isFormer(user_id) {
+
+        const query = `
+        SELECT 
+          CASE 
+            WHEN kanpus_user.role = 'former' THEN true
+	          WHEN kanpus_user.role = 'trainee' THEN false
+        ELSE NULL
+        END AS is_former
+        FROM kanpus_user
+        WHERE kanpus_user.id = $1
+      ;`;
+
+        const value = [user_id];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> isFormer()`);
+        if (!data) {
+          throw new ApiError('No data found for > isFormer()', 500);
+        }
+        
+        return data;
+      },
+
       
 };

@@ -143,7 +143,7 @@ module.exports = {
   },
 
   async getAllEventForUser(user_id,page_number) {
-    const pageSize = 2;
+    const pageSize = 6;
     const pageOffset = (page_number -1) * pageSize;
     const query = `
       SELECT * FROM my_course 

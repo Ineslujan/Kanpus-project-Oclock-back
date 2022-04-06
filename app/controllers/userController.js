@@ -43,7 +43,7 @@ module.exports = {
 
     },
 
-    adduser: async (req,res,next) => {
+    addUser: async (req,res,next) => {
         
         if(req.body.new_password == req.body.confirm_new_password){
             const salt = await bcrypt.genSalt(10);
@@ -86,12 +86,100 @@ module.exports = {
             }
             const newUser = await DataMapper.addUser(form);
             if (newUser){
-                debug(`> adduser() ${form.role}`);
+                debug(`> addUser() ${form.role}`);
                 res.json(newUser);
             } else {
                 next();
             } 
         }
 
+    },
+
+    updateFormer: async (req,res,next) => { 
+        
+        form = {
+            firstname: req.body.firstname,
+            lastname: req.body.lastname,
+            address: req.body.address,
+            phone_number: req.body.phone_number,
+            email: req.body.email,
+            image: req.body.image,
+            color: req.body.color,
+            is_permanent: req.body.is_permanent,
+            promo_id: null
+        }
+
+        const user =  await DataMapper.updateUser(form, req.params.user_id);
+        if (user){
+            debug(`> updateFormer()`);
+            res.json(user);
+        } else {
+            next();
+        } 
+    },
+
+    updateTrainee: async (req,res,next) => { 
+
+        const isFormer = await DataMapper.isFormer(req.params.user_id);
+
+        if(!isFormer.is_former){
+            
+            form = {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                address: req.body.address,
+                phone_number: req.body.phone_number,
+                email: req.body.email,
+                image: req.body.image,
+                color: null,
+                is_permanent: null,
+                promo_id: req.body.promo_id
+            }
+
+            const user =  await DataMapper.updateUser(form, req.params.user_id);
+            if (user){
+                debug(`> updateTrainee()`);
+                res.json(user);
+            } else {
+                next();
+            } 
+        } else {
+            next();
+        }
+
+    },
+
+    updateFormer: async (req,res,next) => { 
+
+        const isFormer = await DataMapper.isFormer(req.params.user_id);
+
+        if(isFormer.is_former){
+            
+            
+            form = {
+                firstname: req.body.firstname,
+                lastname: req.body.lastname,
+                address: req.body.address,
+                phone_number: req.body.phone_number,
+                email: req.body.email,
+                image: req.body.image,
+                color: req.body.color,
+                is_permanent: req.body.is_permanent,
+                promo_id: null
+            }
+
+            const user =  await DataMapper.updateUser(form, req.params.user_id);
+            if (user){
+                debug(`> updateFormer()`);
+                res.json(user);
+            } else {
+                next();
+            } 
+        } else {
+            next();
+        }
+
     }
+        
+    
 }
