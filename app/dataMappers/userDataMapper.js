@@ -115,6 +115,34 @@ module.exports = {
     
       },
 
+      async getUserById (user_id) {
+
+        const query = `
+        SELECT 
+          kanpus_user.id,
+          kanpus_user.firstname,
+          kanpus_user.lastname,
+          kanpus_user.address,
+          kanpus_user.phone_number,
+          kanpus_user.email,
+          kanpus_user.image,
+          kanpus_user.color,
+          kanpus_promo.name AS promo
+          FROM kanpus_user
+          FULL JOIN kanpus_promo ON kanpus_user.id = kanpus_promo.id
+          WHERE kanpus_user.id = $1
+        ;`;
+      
+      const data = (await dataBase.query(query, [user_id])).rows;
+
+      debug(`> getUserById()`);
+        if (!data) {
+          throw new ApiError('No data found for > getUserById()', 500);
+        }
+        
+        return data;
+      
+      },
 
       async addUser(form) {
 
@@ -222,3 +250,4 @@ module.exports = {
 
       
 };
+

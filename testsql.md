@@ -28,3 +28,20 @@ git push heroku API-init:main
 psql -d kanpus -f ./data/seed.sql
 ```
 
+```sql
+
+SELECT 
+kanpus_user.id,
+kanpus_user.firstname,
+kanpus_user.lastname,
+kanpus_user.address,
+kanpus_user.phone_number,
+kanpus_user.email,
+kanpus_user.image,
+kanpus_user.color,
+kanpus_promo.name AS promo
+FROM kanpus_user
+FULL JOIN kanpus_promo ON kanpus_user.id = kanpus_promo.id
+WHERE kanpus_user.id = 1
+;
+```

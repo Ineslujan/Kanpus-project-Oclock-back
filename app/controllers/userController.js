@@ -43,6 +43,20 @@ module.exports = {
 
     },
 
+    getUserById: async (req, res, next) => {
+
+        const user = await DataMapper.getUserById(req.params.user_id);
+
+        if (user) {
+            debug(`> getUserById()`);
+            res.json(user);
+        } else {
+            next();
+        }
+
+    },
+
+
     addUser: async (req, res, next) => {
 
         if (req.body.new_password == req.body.confirm_new_password) {
@@ -183,7 +197,7 @@ module.exports = {
     updatePassword: async (req, res, next) => {
         
 
-        let userId = 8;
+        let userId = 1;
         if(req.params.user_id){
             userId = req.params.user_id
         }

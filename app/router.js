@@ -5,7 +5,7 @@ const controllerHandler = require('./helpers/controllerHandler');
 
 const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
-const placeController = require('./controllers/placeController')
+const placeController = require('./controllers/placeController');
 
 // Routes EVENT
 router.get('/event/organizer/:date', controllerHandler(eventController.getOrganizer));
@@ -17,6 +17,7 @@ router.get('/event/:event_id', controllerHandler(eventController.getEventById));
 router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
 // Routes USER
+router.get('/user/:user_id', controllerHandler(userController.getUserById));
 router.get('/user/event_form/', controllerHandler(userController.getTraineeByPromoAndGroup));
 router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPromo));
 router.get('/user/former', controllerHandler(userController.getAllFormerByIsPermanent));
@@ -28,7 +29,7 @@ router.patch('/user/password/:user_id', controllerHandler(userController.updateP
 router.delete('/user/:user_id', controllerHandler(userController.deleteUser));
 
 // Routes PLACE
-router.get('/place/', controllerHandler(placeController.getAllPlace))
+router.get('/place/', controllerHandler(placeController.getAllPlace));
 
 
 
