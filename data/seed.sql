@@ -131,16 +131,6 @@ INSERT INTO kanpus_event (
 	'2022-04-15 08:45:00',
 	'0 8:00:00',
 	7
-),
-(
-	'Smartphone video',
-	null,
-	null,
-	'iphone',
-	null,
-	'2022-04-11 08:45:00',
-	'3 15:45:00',
-	6
 );
 
 
@@ -305,8 +295,7 @@ INSERT INTO kanpus_user_has_event (
     (7,10),
     (2,10),
     (5,11),
-    (3,11),
-    (4,12)
+    (3,11)
 ;
 
 
