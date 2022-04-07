@@ -1,6 +1,8 @@
 const debug = require('debug')('userController');
 const DataMapper = require('../dataMappers/userDataMapper');
 const bcrypt = require('bcrypt');
+const jwt    = require('jsonwebtoken');
+const SECRET_KEY = process.env.SECRET_KEY;
 
 module.exports = {
 
@@ -240,6 +242,50 @@ module.exports = {
         }
 
     },
+
+    login: async (req,res,next)=> {
+
+        const user = await DataMapper.getUserByEmail(req.body.email)
+        debug(user);
+
+        if(user){
+        
+        const validPwd = await bcrypt.compare(req.body.password, user.password);
+        debug(validPwd);
+        if (!validPwd) {
+            return res.json({
+              error: "Ce n'est pas le bon mot de passe."
+            });
+          }
+          delete user.password;
+
+          const expireIn = 24 * 60 * 60;
+          const token    = jwt.sign({
+              user: user
+          },
+          SECRET_KEY,
+          {
+              expiresIn: expireIn
+          });
+
+          res.header('Authorization', 'Bearer ' + token);
+         // res.header('Authorization',token);
+
+          return res.status(200).json({
+              logged:true,
+              user
+          });
+
+        } else {
+            return res.json({
+                error: "Ce n'est pas le bon email."
+            });
+        }
+
+
+
+    }
+
 
 
 

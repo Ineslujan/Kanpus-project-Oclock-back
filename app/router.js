@@ -1,11 +1,19 @@
 const express = require('express');
 
 const router = express.Router();
+const checkJWT = require('./middleware/security')
 const controllerHandler = require('./helpers/controllerHandler');
 
 const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
 const placeController = require('./controllers/placeController');
+
+// Route LOGIN
+router.post('/signin/', controllerHandler(userController.login));
+router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
+    console.log('TEST OK -----------------------');
+    console.log('decoded',req.decoded.user);
+})
 
 // Routes EVENT
 router.get('/event/organizer/:date', controllerHandler(eventController.getOrganizer));

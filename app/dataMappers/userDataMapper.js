@@ -246,6 +246,21 @@ module.exports = {
         }
         
         return data;
+      },
+
+      async getUserByEmail(email) {
+
+        const query = `SELECT * FROM "kanpus_user" WHERE email = $1`;
+
+        const value = [email];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> getUserByEmail()`);
+        if (!data) {
+          return false
+        }
+        
+        return data;
       }
 
       
