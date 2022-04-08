@@ -8,7 +8,7 @@ const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
 const placeController = require('./controllers/placeController');
 const settingsController = require('./controllers/settingsController');
-const placeDataMapper = require('./dataMappers/placeDataMapper');
+const promoController = require('./controllers/promoController');
 
 // Route LOGIN
 router.post('/signin/', controllerHandler(userController.login));
@@ -26,7 +26,8 @@ router.patch('/event/:event_id', controllerHandler(eventController.updateEventBy
 router.get('/event/:event_id', controllerHandler(eventController.getEventById));
 router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
-// Routes USER
+// Routes USER 
+    // order matters
 router.get('/user/event_form/', controllerHandler(userController.getTraineeByPromoAndGroup));
 router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPromo));
 router.get('/user/former', controllerHandler(userController.getAllFormerByIsPermanent));
@@ -41,10 +42,21 @@ router.delete('/user/:user_id', controllerHandler(userController.deleteUser));
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace));
 router.post('/place/', controllerHandler(placeController.addPlace));
-router.patch('/place/:place_id', controllerHandler(placeController.updatePlace));
+router.patch('/place/:place_id', controllerHandler(placeController.updatePlacebyId));
 router.delete('/place/:place_id', controllerHandler(placeController.deletePlaceById));
+
+// Routes PROMO
+router.get('/promo/', controllerHandler(promoController.getAllPromo));
+router.post('/promo/', controllerHandler(promoController.addPromo));
+router.patch('/promo/:promo_id', controllerHandler(promoController.updatePromoById));
+router.delete('/promo/:promo_id', controllerHandler(promoController.deletePromoById));
+
 // Routes SETTINGS
 router.get('/settings/', controllerHandler(settingsController.getAllSetting));
 router.put('/settings/' ,controllerHandler(settingsController.updateAllSetting))
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
+
+
+
+
 module.exports = router;

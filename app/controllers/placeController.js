@@ -25,18 +25,15 @@ module.exports = {
 
     },
 
-    async updatePlace(form,place_id) {
+    updatePlacebyId: async (req,res,next) =>{
 
-        const query = `SELECT * FROM update_place($1,$2);`;
-        const value = [form, place_id];
-    
-        const data = (await dataBase.query(query, value)).rows[0];
-        debug(`> updatePlace()`);
-        if (!data) {
-          throw new ApiError('No data found for > updatePlace()', 500);
+        const newPlace = await DataMapper.updatePlaceById(req.body,req.params.place_id);
+        debug(' > updatePlacebyId()');
+        if (newPlace) {
+            res.json(newPlace);
+        } else {
+            next();
         }
-        
-        return data;
       },
 
       deletePlaceById: async (req, res, next) => {
@@ -47,5 +44,5 @@ module.exports = {
         } else {
             next();
         }
-    },
+    }
 };
