@@ -19,8 +19,8 @@ router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
 
 // Routes EVENT
 router.get('/event/organizer/:date', controllerHandler(eventController.getOrganizer));
-router.post('/event/check-date', controllerHandler(eventController.checkIsAvailabe));
-router.post('/event/', controllerHandler(eventController.addEvent));
+router.post('/event/check_date', controllerHandler(eventController.checkIsAvailabe));
+router.post('/event/',controllerHandler(eventController.addEvent));
 router.get('/event/my_course/:page_number',controllerHandler(eventController.getAllEventForUser));
 router.patch('/event/:event_id', controllerHandler(eventController.updateEventById));
 router.get('/event/:event_id', controllerHandler(eventController.getEventById));
