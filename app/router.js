@@ -7,13 +7,14 @@ const controllerHandler = require('./helpers/controllerHandler');
 const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
 const placeController = require('./controllers/placeController');
+const settingsController = require('./controllers/settingsController');
 
 // Route LOGIN
 router.post('/signin/', controllerHandler(userController.login));
 router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
     console.log('TEST OK -----------------------');
     console.log('decoded',req.decoded.user);
-})
+});
 
 // Routes EVENT
 router.get('/event/organizer/:date', controllerHandler(eventController.getOrganizer));
@@ -39,6 +40,8 @@ router.delete('/user/:user_id', controllerHandler(userController.deleteUser));
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace));
 
-
-
+// Routes SETTINGS
+router.get('/settings/', controllerHandler(settingsController.getAllSetting));
+router.put('/settings/' ,controllerHandler(settingsController.updateAllSetting))
+router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 module.exports = router;
