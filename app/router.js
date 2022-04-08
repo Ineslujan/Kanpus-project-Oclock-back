@@ -26,10 +26,10 @@ router.get('/event/:event_id', controllerHandler(eventController.getEventById));
 router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
 // Routes USER
-router.get('/user/:user_id', controllerHandler(userController.getUserById));
 router.get('/user/event_form/', controllerHandler(userController.getTraineeByPromoAndGroup));
 router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPromo));
 router.get('/user/former', controllerHandler(userController.getAllFormerByIsPermanent));
+router.get('/user/:user_id', controllerHandler(userController.getUserById));
 router.post('/user/:role/',controllerHandler(userController.addUser));
 router.patch('/user/former/:user_id', controllerHandler(userController.updateFormer));
 router.patch('/user/trainee/:user_id', controllerHandler(userController.updateTrainee));
