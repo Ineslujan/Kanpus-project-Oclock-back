@@ -8,6 +8,7 @@ const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
 const placeController = require('./controllers/placeController');
 const settingsController = require('./controllers/settingsController');
+const placeDataMapper = require('./dataMappers/placeDataMapper');
 
 // Route LOGIN
 router.post('/signin/', controllerHandler(userController.login));
@@ -39,7 +40,9 @@ router.delete('/user/:user_id', controllerHandler(userController.deleteUser));
 
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace));
-
+router.post('/place/', controllerHandler(placeController.addPlace));
+router.patch('/place/:place_id', controllerHandler(placeController.updatePlace));
+router.delete('/place/:place_id', controllerHandler(placeController.deletePlaceById));
 // Routes SETTINGS
 router.get('/settings/', controllerHandler(settingsController.getAllSetting));
 router.put('/settings/' ,controllerHandler(settingsController.updateAllSetting))

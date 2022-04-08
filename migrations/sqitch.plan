@@ -8,3 +8,4 @@ add_event_function 2022-04-03T12:11:17Z deldon <r.deldon@gmail.com> # adding fun
 view_my_course 2022-04-04T08:36:26Z markS <mark.smaniotto@gmail.com> # Addition of the view of all event with user list and user_id nested in organizer view
 update_event_function 2022-04-04T14:01:59Z deldon <r.deldon@gmail.com> # added update_event function
 create_update_user_functions 2022-04-05T12:02:04Z deldon <r.deldon@gmail.com> # Addition of Create and Update user functions
+create_update_place 2022-04-08T07:46:33Z markS <mark.smaniotto@gmail.com> # Functions creation for create and update place
