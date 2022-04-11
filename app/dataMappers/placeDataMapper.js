@@ -17,6 +17,7 @@ module.exports = {
         if (!data) {
           throw new ApiError('No data found for getAllPlace()', 500);
         }
+        
         return data;
     
       },
@@ -35,6 +36,7 @@ module.exports = {
         }
         
         return data;
+
       },
 
       async updatePlaceById(form,place_id) {
@@ -49,6 +51,7 @@ module.exports = {
         }
         
         return data;
+
       },
 
       async deletePlaceById(place_id) {
@@ -60,7 +63,9 @@ module.exports = {
         if (!place) {
           throw new ApiError('No data to deletePlaceById', 500);
         }
+
         return place;
+
       },
 
 
