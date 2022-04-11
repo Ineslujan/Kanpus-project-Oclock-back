@@ -37,7 +37,7 @@ module.exports = {
         return data;
       },
 
-      async updatePlace(form,place_id) {
+      async updatePlaceById(form,place_id) {
 
         const query = `SELECT * FROM update_place($1,$2);`;
         const value = [form, place_id];
