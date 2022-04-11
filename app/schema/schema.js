@@ -65,10 +65,15 @@ module.exports.deletePlace = Joi.object({
     place_id: Joi.number()
 });
 
-
-// {
-//     "old_password":"kanpus",
-//     "new_password":"romain",
-//     "repeat_password":"romain"
-// }
+module.exports.settings = Joi.object({
+    name: Joi.string(),
+    address: Joi.string(),
+    phone_number: Joi.string(),
+    email: Joi.string().email(),
+    url_image: Joi.string(),
+    course_start_hour_am: Joi.string(),
+    course_end_hour_am: Joi.string(),
+    course_start_hour_pm: Joi.string(),
+    course_end_hour_pm: Joi.string()
+});
 

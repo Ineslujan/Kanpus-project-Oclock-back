@@ -26,7 +26,7 @@ router.get('/event/organizer/:date', controllerHandler(eventController.getOrgani
 router.post('/event/check_date/:event_id',validator(schema.checkDate, 'body'), controllerHandler(eventController.checkIsAvailabe));
 router.post('/event/',validator(schema.event, 'body'), controllerHandler(eventController.addEvent));
 router.get('/event/my_course/:page_number',controllerHandler(eventController.getAllEventForUser));
-router.patch('/event/:event_id', controllerHandler(eventController.updateEventById));
+router.patch('/event/:event_id',validator(schema.event, 'body'), controllerHandler(eventController.updateEventById));
 router.get('/event/:event_id', controllerHandler(eventController.getEventById));
 router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
 
@@ -57,7 +57,7 @@ router.delete('/promo/:promo_id', controllerHandler(promoController.deletePromoB
 
 // Routes SETTINGS
 router.get('/settings/', controllerHandler(settingsController.getAllSetting));
-router.put('/settings/' ,controllerHandler(settingsController.updateAllSetting))
+router.put('/settings/' ,validator(schema.settings, 'body'),controllerHandler(settingsController.updateAllSetting));
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 
 //404
