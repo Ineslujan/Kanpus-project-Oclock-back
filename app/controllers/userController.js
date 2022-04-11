@@ -115,6 +115,7 @@ module.exports = {
             const newUser = await DataMapper.addUser(form);
             if (newUser) {
                 debug(`> addUser() ${form.role}`);
+                delete newUser.password;
                 res.json(newUser);
             } else {
                 next();
@@ -140,6 +141,7 @@ module.exports = {
         const user = await DataMapper.updateUser(form, req.params.user_id);
         if (user) {
             debug(`> updateFormer()`);
+            delete user.password;
             res.json(user);
         } else {
             next();
@@ -167,6 +169,7 @@ module.exports = {
             const user = await DataMapper.updateUser(form, req.params.user_id);
             if (user) {
                 debug(`> updateTrainee()`);
+                delete user.password;
                 res.json(user);
             } else {
                 next();
@@ -249,7 +252,7 @@ module.exports = {
 
         if (user) {
             debug(`> deleteUser()`);
-            res.json({ Message: "Utilisateur supprimé" });
+            res.json({message:`Place :${user.id} is removed`, id:Number(user.id)});
         } else {
             next();
         }

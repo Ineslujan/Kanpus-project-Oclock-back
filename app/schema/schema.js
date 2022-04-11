@@ -54,3 +54,21 @@ module.exports.signIn = Joi.object({
 
 });
 
+module.exports.updatePassword = Joi.object({
+    old_password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    new_password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
+    repeat_password: Joi.ref('new_password'),
+
+});
+
+module.exports.deletePlace = Joi.object({
+    place_id: Joi.number()
+});
+
+
+// {
+//     "old_password":"kanpus",
+//     "new_password":"romain",
+//     "repeat_password":"romain"
+// }
+

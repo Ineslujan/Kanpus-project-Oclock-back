@@ -219,10 +219,10 @@ module.exports = {
   },
 
   async deleteEventById(event_id) {
-    const query = `DELETE FROM kanpus_event WHERE id = $1`;
+    const query = `DELETE FROM kanpus_event WHERE id = $1 RETURNING id`;
     const values = [event_id];
 
-    const event = (await dataBase.query(query,values)).rows;
+    const event = (await dataBase.query(query,values)).rows[0];
     debug(`> deleteEventById()`);
     if (!event) {
       throw new ApiError('No data to deleteEventById', 500);

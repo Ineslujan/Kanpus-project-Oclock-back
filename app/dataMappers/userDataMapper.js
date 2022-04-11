@@ -234,11 +234,11 @@ module.exports = {
 
       async deleteUser(user_id) {
 
-        const query = `DELETE FROM kanpus_user WHERE id = $1`;
+        const query = `DELETE FROM kanpus_user WHERE id = $1 RETURNING id`;
 
         const value = [user_id];
     
-        const data = (await dataBase.query(query, value)).rows;
+        const data = (await dataBase.query(query, value)).rows[0];
         debug(`> deleteUser()`);
         if (!data) {
           throw new ApiError('No data found for > deleteUser()', 500);

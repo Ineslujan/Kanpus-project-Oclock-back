@@ -55,10 +55,10 @@ module.exports = {
       },
 
       async deletePlaceById(place_id) {
-        const query = `DELETE FROM kanpus_place WHERE id = $1`;
+        const query = `DELETE FROM kanpus_place WHERE id = $1 RETURNING id`;
         const values = [place_id];
     
-        const place = (await dataBase.query(query,values)).rows;
+        const place = (await dataBase.query(query,values)).rows[0];
         debug(`> deletePlaceById()`);
         if (!place) {
           throw new ApiError('No data to deletePlaceById', 500);

@@ -86,8 +86,8 @@ module.exports = {
         debug(' > deleteEventById()');
         if (event) {
             res.json({
-                message: `Event :${req.params.event_id} is removed`,
-                id: Number(req.params.event_id)
+                message: `Event :${event.id} is removed`,
+                id: Number(event.id)
             });
         } else {
             next();

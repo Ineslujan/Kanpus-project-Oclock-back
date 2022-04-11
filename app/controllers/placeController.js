@@ -38,9 +38,10 @@ module.exports = {
 
       deletePlaceById: async (req, res, next) => {
         const place = await DataMapper.deletePlaceById(req.params.place_id)
+        debug(place)
         debug(' > deletePlaceById()');
         if (place) {
-            res.json({message:`Place :${req.params.place_id} is removed`, id:Number(req.params.place_id)});
+            res.json({message:`Place :${place.id} is removed`, id:Number(place.id)});
         } else {
             next();
         }

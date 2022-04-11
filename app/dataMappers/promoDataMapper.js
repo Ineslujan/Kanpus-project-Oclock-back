@@ -51,10 +51,10 @@ module.exports = {
     },
 
     async deletePromoById(promo_id) {
-        const query = `DELETE FROM kanpus_promo WHERE id = $1`;
+        const query = `DELETE FROM kanpus_promo WHERE id = $1 RETURNING id`;
         const values = [promo_id];
     
-        const promo = (await dataBase.query(query,values)).rows;
+        const promo = (await dataBase.query(query,values)).rows[0];
         debug(`> deletePromoById()`);
         if (!promo) {
           throw new ApiError('No data to deletePromoById', 500);

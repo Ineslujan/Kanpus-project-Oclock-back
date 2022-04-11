@@ -37,22 +37,22 @@ router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPro
 router.get('/user/former', controllerHandler(userController.getAllFormerByIsPermanent));
 router.get('/user/:user_id', controllerHandler(userController.getUserById));
 router.post('/user/:role/', validator(schema.user, 'body'), controllerHandler(userController.addUser));
-router.patch('/user/former/:user_id', controllerHandler(userController.updateFormer));
-router.patch('/user/trainee/:user_id', controllerHandler(userController.updateTrainee));
-router.patch('/user/password', controllerHandler(userController.updatePassword));
-router.patch('/user/password/:user_id', controllerHandler(userController.updatePassword));
+router.patch('/user/former/:user_id', validator(schema.user, 'body'), controllerHandler(userController.updateFormer));
+router.patch('/user/trainee/:user_id', validator(schema.user, 'body'), controllerHandler(userController.updateTrainee));
+router.patch('/user/password', validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
+router.patch('/user/password/:user_id', validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
 router.delete('/user/:user_id', controllerHandler(userController.deleteUser));
 
 // Routes PLACE
 router.get('/place/', controllerHandler(placeController.getAllPlace));
 router.post('/place/',validator(schema.place, 'body'), controllerHandler(placeController.addPlace));
-router.patch('/place/:place_id', controllerHandler(placeController.updatePlacebyId));
+router.patch('/place/:place_id',validator(schema.place, 'body'), controllerHandler(placeController.updatePlacebyId));
 router.delete('/place/:place_id', controllerHandler(placeController.deletePlaceById));
 
 // Routes PROMO
 router.get('/promo/', controllerHandler(promoController.getAllPromo));
 router.post('/promo/',validator(schema.promo, 'body'), controllerHandler(promoController.addPromo));
-router.patch('/promo/:promo_id', controllerHandler(promoController.updatePromoById));
+router.patch('/promo/:promo_id',validator(schema.promo, 'body'), controllerHandler(promoController.updatePromoById));
 router.delete('/promo/:promo_id', controllerHandler(promoController.deletePromoById));
 
 // Routes SETTINGS
@@ -60,7 +60,10 @@ router.get('/settings/', controllerHandler(settingsController.getAllSetting));
 router.put('/settings/' ,controllerHandler(settingsController.updateAllSetting))
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 
-
+//404
+router.use((_req,res)=>{
+    res.status(404).json('Sorry cant find that!')
+})
 
 
 module.exports = router;
