@@ -15,7 +15,7 @@ module.exports = {
         const data = (await dataBase.query(query)).rows;
         debug(`> getAllPlace(): ${query}`);
         if (!data) {
-          throw new ApiError('No data found for getAllPlace()', 500);
+          throw new ApiError('No data found for getAllPlace()', 404);
         }
         
         return data;
@@ -32,7 +32,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> addPlace()`);
         if (!data) {
-          throw new ApiError('No data found for > addPlace()', 500);
+          throw new ApiError('No data found for > addPlace()', 400);
         }
         
         return data;
@@ -47,7 +47,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> updatePlace()`);
         if (!data) {
-          throw new ApiError('No data found for > updatePlace()', 500);
+          throw new ApiError('No data found for > updatePlace()', 400);
         }
         
         return data;
@@ -61,7 +61,7 @@ module.exports = {
         const place = (await dataBase.query(query,values)).rows[0];
         debug(`> deletePlaceById()`);
         if (!place) {
-          throw new ApiError('No data to deletePlaceById', 500);
+          throw new ApiError('No data to deletePlaceById', 400);
         }
 
         return place;

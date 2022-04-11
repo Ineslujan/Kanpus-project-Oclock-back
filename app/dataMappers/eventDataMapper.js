@@ -26,7 +26,7 @@ module.exports = {
 
     debug(`> getOrganizer()`);
     if (!data) {
-      throw new ApiError('No data found for getOrganizer', 500);
+      throw new ApiError('No data found for getOrganizer', 404);
     }
     return data;
   },
@@ -72,7 +72,7 @@ module.exports = {
 
     debug(`> checkFormerIsAvailabe()`);
     if (!data) {
-      throw new ApiError('No data found for checkFormerIsAvailabe()', 500);
+      throw new ApiError('No data found for checkFormerIsAvailabe()', 404);
     }
 
     return data;
@@ -113,7 +113,7 @@ module.exports = {
 
     debug(`> checkPlaceIsAvailabe()`);
     if (!data) {
-      throw new ApiError('No data found for checkPlaceIsAvailabe()', 500);
+      throw new ApiError('No data found for checkPlaceIsAvailabe()', 404);
     }
 
     return data;
@@ -157,7 +157,7 @@ module.exports = {
     const data = (await dataBase.query(query,values)).rows;
     debug(`> getAllEventForUser()`);
     if (!data) {
-      throw new ApiError('No data found for getAllEventForUser', 500);
+      throw new ApiError('No data found for getAllEventForUser', 404);
     }
     return data;
   },
@@ -187,7 +187,7 @@ module.exports = {
     }
     debug(`> updateEventById()`);
     if (!data) {
-      throw new ApiError('No data to update updateEventById', 500);
+      throw new ApiError('No data to update updateEventById', 400);
     }
     return {data,resultUsers};
   },
@@ -213,7 +213,7 @@ module.exports = {
     const event = (await dataBase.query(query,values)).rows[0];
     debug(`> getEventById()`);
     if (!event) {
-      throw new ApiError('No data to getEventById', 500);
+      throw new ApiError('No data to getEventById', 404);
     }
     return event;
   },
@@ -225,7 +225,7 @@ module.exports = {
     const event = (await dataBase.query(query,values)).rows[0];
     debug(`> deleteEventById()`);
     if (!event) {
-      throw new ApiError('No data to deleteEventById', 500);
+      throw new ApiError('No data to deleteEventById', 400);
     }
     return event;
   },

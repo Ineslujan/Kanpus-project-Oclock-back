@@ -16,7 +16,7 @@ module.exports = {
         const data = (await dataBase.query(query)).rows;
         debug(`> getAllPromo(): ${query}`);
         if (!data) {
-          throw new ApiError('No data found for getAllPromo()', 500);
+          throw new ApiError('No data found for getAllPromo()', 404);
         }
         return data;
     
@@ -30,7 +30,7 @@ module.exports = {
       const data = (await dataBase.query(query, value)).rows[0];
       debug(`> addPromo()`);
       if (!data) {
-        throw new ApiError('No data found for > addPromo()', 500);
+        throw new ApiError('No data found for > addPromo()', 400);
       }
       
       return data;
@@ -44,7 +44,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> updatePromo()`);
         if (!data) {
-          throw new ApiError('No data found for > updatePromo()', 500);
+          throw new ApiError('No data found for > updatePromo()', 400);
         }
         
         return data;
@@ -57,7 +57,7 @@ module.exports = {
         const promo = (await dataBase.query(query,values)).rows[0];
         debug(`> deletePromoById()`);
         if (!promo) {
-          throw new ApiError('No data to deletePromoById', 500);
+          throw new ApiError('No data to deletePromoById', 400);
         }
         return promo;
       },

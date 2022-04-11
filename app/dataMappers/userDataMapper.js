@@ -17,7 +17,7 @@ module.exports = {
         const data = (await dataBase.query(query)).rows;
         debug(`> getAllTraineeWithPromoByPromo()`);
         if (!data) {
-          throw new ApiError('No data found for getAllTraineeWithPromoByPromo()', 500);
+          throw new ApiError('No data found for getAllTraineeWithPromoByPromo()', 404);
         }
         return data;
     
@@ -38,7 +38,7 @@ module.exports = {
       const data = (await dataBase.query(query)).rows;
       debug(`> getAllTraineeByGroup()`);
       if (!data) {
-        throw new ApiError('No data found for getAllTraineeByGroup()', 500);
+        throw new ApiError('No data found for getAllTraineeByGroup()', 404);
       }
       return data;
     
@@ -73,7 +73,7 @@ module.exports = {
         const data = (await dataBase.query(query)).rows;
         debug(`> getAllTraineeByPromo()`);
         if (!data) {
-          throw new ApiError('No data found for > getAllTraineeByPromo()', 500);
+          throw new ApiError('No data found for > getAllTraineeByPromo()', 404);
         }
         
         return data;
@@ -109,7 +109,7 @@ module.exports = {
         const data = (await dataBase.query(query)).rows;
         debug(`> getAllFormerByIsPermanent()`);
         if (!data) {
-          throw new ApiError('No data found for getAllFormerByIsPermanent()', 500);
+          throw new ApiError('No data found for getAllFormerByIsPermanent()', 404);
         }
         return data;
     
@@ -136,7 +136,7 @@ module.exports = {
       const data = (await dataBase.query(query, [user_id])).rows[0];
       debug(`> getUserById()`);
         if (!data) {
-          throw new ApiError('No data found for > getUserById()', 500);
+          throw new ApiError('No data found for > getUserById()', 404);
         }
         
         return data;
@@ -151,7 +151,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> addUser()`);
         if (!data) {
-          throw new ApiError('No data found for > addUser()', 500);
+          throw new ApiError('No data found for > addUser()', 400);
         }
         
         return data;
@@ -165,7 +165,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> updateUser()`);
         if (!data) {
-          throw new ApiError('No data found for > updateUser()', 500);
+          throw new ApiError('No data found for > updateUser()', 400);
         }
         
         return data;
@@ -189,7 +189,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> isFormer()`);
         if (!data) {
-          throw new ApiError('No data found for > isFormer()', 500);
+          throw new ApiError('No data found for > isFormer()', 404);
         }
         
         return data;
@@ -211,7 +211,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> updatePassword()`);
         if (!data) {
-          throw new ApiError('No data found for > updatePassword()', 500);
+          throw new ApiError('No data found for > updatePassword()', 400);
         }
         
         return data;
@@ -226,7 +226,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> getPasswordById()`);
         if (!data) {
-          throw new ApiError('No data found for > getPasswordById()', 500);
+          throw new ApiError('No data found for > getPasswordById()', 404);
         }
         
         return data;
@@ -241,7 +241,7 @@ module.exports = {
         const data = (await dataBase.query(query, value)).rows[0];
         debug(`> deleteUser()`);
         if (!data) {
-          throw new ApiError('No data found for > deleteUser()', 500);
+          throw new ApiError('No data found for > deleteUser()', 400);
         }
         
         return data;
