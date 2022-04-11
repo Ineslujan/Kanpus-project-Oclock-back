@@ -31,10 +31,9 @@ module.exports = {
     return data;
   },
 
-  async checkFormerIsAvailabe(startDate, endDate) {
+  async checkFormerIsAvailabe(startDate, endDate, update_id) {
     //checkIsAvailabeFormer
-    const query = `
-    SELECT
+    const query = `	SELECT
     kanpus_user.id AS user_id,
     kanpus_user.firstname,
     kanpus_user.lastname,
@@ -47,7 +46,7 @@ module.exports = {
         FROM kanpus_user_has_event
         JOIN kanpus_event ON kanpus_event.id = kanpus_user_has_event.event_id
         JOIN kanpus_user ON kanpus_user.id = kanpus_user_has_event.user_id
-        WHERE (
+        WHERE ( (
             kanpus_event.start_date 
             BETWEEN $1 AND $2
             OR
@@ -60,13 +59,14 @@ module.exports = {
             OR
             $2
             BETWEEN kanpus_event.start_date AND (kanpus_event.start_date + kanpus_event.duration)
-            )
+            ) )
+		AND kanpus_event.id != $3
         )AS is_availabe ON is_availabe.id = kanpus_user.id 
         WHERE kanpus_user.role = 'former'
         GROUP BY kanpus_user.id
         ORDER BY kanpus_user.is_permanent DESC;`;
 
-    const value = [startDate, endDate];
+    const value = [startDate, endDate, update_id];
 
     const data = (await dataBase.query(query, value)).rows;
 
@@ -78,10 +78,9 @@ module.exports = {
     return data;
   },
 
-  async checkPlaceIsAvailabe(startDate, endDate) {
+  async checkPlaceIsAvailabe(startDate, endDate, update_id) {
   //checkIsAvailabePlace
-    const query = `
-    SELECT 
+    const query = `   SELECT 
     kanpus_place.id,
     kanpus_place.name,
     ARRAY_AGG(is_availabe.event) AS event
@@ -91,7 +90,7 @@ module.exports = {
         kanpus_event.name AS event
         FROM kanpus_place
         JOIN kanpus_event ON kanpus_event.place_id = kanpus_place.id
-            WHERE (
+            WHERE ((
                 kanpus_event.start_date 
                 BETWEEN $1 AND $2
                 OR
@@ -99,15 +98,16 @@ module.exports = {
                 BETWEEN $1 AND $2
             )
             OR (
-                $1 
+              $1 
                 BETWEEN kanpus_event.start_date AND (kanpus_event.start_date + kanpus_event.duration) 
                 OR
                 $2
                 BETWEEN kanpus_event.start_date AND (kanpus_event.start_date + kanpus_event.duration)
-            )
+            ))
+		AND kanpus_event.id != $3
     ) AS is_availabe ON is_availabe.place_id = kanpus_place.id 
     GROUP BY kanpus_place.id;`;
-    const value = [startDate, endDate];
+    const value = [startDate, endDate, update_id];
 
     const data = (await dataBase.query(query, value)).rows;
 

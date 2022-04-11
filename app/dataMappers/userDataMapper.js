@@ -60,7 +60,7 @@ module.exports = {
                 'address',kanpus_user.address,
                 'phone_number',kanpus_user.phone_number,
                 'email',kanpus_user.email,
-                'image',kanpus_user.phone_number,
+                'image',kanpus_user.image,
                 'promo' ,kanpus_promo.name
           )) 
         FILTER (WHERE kanpus_user.firstname IS NOT NULL), '[]') AS trainee
