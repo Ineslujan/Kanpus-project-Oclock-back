@@ -129,12 +129,11 @@ module.exports = {
           kanpus_user.color,
           kanpus_promo.name AS promo
           FROM kanpus_user
-          FULL JOIN kanpus_promo ON kanpus_user.id = kanpus_promo.id
+          FULL JOIN kanpus_promo ON kanpus_user.promo_id = kanpus_promo.id
           WHERE kanpus_user.id = $1
         ;`;
       
       const data = (await dataBase.query(query, [user_id])).rows[0];
-
       debug(`> getUserById()`);
         if (!data) {
           throw new ApiError('No data found for > getUserById()', 500);
