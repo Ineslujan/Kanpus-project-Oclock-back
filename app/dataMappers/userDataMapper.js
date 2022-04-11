@@ -133,7 +133,7 @@ module.exports = {
           WHERE kanpus_user.id = $1
         ;`;
       
-      const data = (await dataBase.query(query, [user_id])).rows;
+      const data = (await dataBase.query(query, [user_id])).rows[0];
 
       debug(`> getUserById()`);
         if (!data) {

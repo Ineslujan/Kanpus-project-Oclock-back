@@ -3,7 +3,7 @@ const DataMapper = require('../dataMappers/userDataMapper');
 const bcrypt = require('bcrypt');
 const jwt    = require('jsonwebtoken');
 const SECRET_KEY = process.env.SECRET_KEY;
-
+const url_avatar = process.env.URL_SERVER + 'avatar/';
 module.exports = {
 
     getTraineeByPromoAndGroup: async (req, res, next) => {
@@ -23,6 +23,11 @@ module.exports = {
 
     getAllTraineeByPromo: async (req, res, next) => {
         const users = await DataMapper.getAllTraineeByPromo();
+        users.map((e)=>{
+            e.trainee.map((trainee)=>{
+                trainee.image = url_avatar + trainee.image
+            })
+        })
 
         if (users) {
             debug(`> getAllTraineeByPromo()`);
@@ -36,6 +41,12 @@ module.exports = {
     getAllFormerByIsPermanent: async (req, res, next) => {
         const users = await DataMapper.getAllFormerByIsPermanent();
 
+        users.map((e)=>{
+            e.former.map((former)=>{
+                former.image = url_avatar + former.image
+            })
+        })
+
         if (users) {
             debug(`> getAllFormerByIsPermanent()`);
             res.json(users);
@@ -48,6 +59,8 @@ module.exports = {
     getUserById: async (req, res, next) => {
 
         const user = await DataMapper.getUserById(req.params.user_id);
+
+        user.image = url_avatar + user.image;
 
         if (user) {
             debug(`> getUserById()`);
@@ -74,7 +87,7 @@ module.exports = {
                     address: req.body.address,
                     phone_number: req.body.phone_number,
                     email: req.body.email,
-                    image: 'thumbnail.jpg',
+                    image: 'thumbnail.png',
                     color: req.body.color,
                     password: encryptedPassword,
                     is_permanent: req.body.is_permanent,
@@ -89,7 +102,7 @@ module.exports = {
                     address: req.body.address,
                     phone_number: req.body.phone_number,
                     email: req.body.email,
-                    image: 'thumbnail.jpg',
+                    image: 'thumbnail.png',
                     color: null,
                     password: encryptedPassword,
                     is_permanent: null,
