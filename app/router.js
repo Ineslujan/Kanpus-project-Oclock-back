@@ -6,6 +6,7 @@ const controllerHandler = require('./helpers/controllerHandler');
 
 const validator = require('./middleware/validator');
 const schema = require('./schema/schema');
+const handleError = require('./middleware/handleError');
 
 
 const eventController = require('./controllers/eventController');
@@ -19,6 +20,10 @@ router.post('/signin/',validator(schema.signIn, 'body'), controllerHandler(userC
 router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
     console.log('TEST OK -----------------------');
     console.log('decoded',req.decoded.user);
+    res.json({
+        message: "ok" , 
+        decoded :req.decoded.user
+    });
 });
 
 // Routes EVENT
@@ -64,6 +69,8 @@ router.get('/signin/', controllerHandler(settingsController.getStructureSetting)
 router.use((_req,res)=>{
     res.status(404).json('Sorry cant find that!')
 })
+
+router.use(handleError);
 
 
 module.exports = router;
