@@ -5,7 +5,7 @@ const ApiError = require('../errors/apiError');
 module.exports = {
     // Get all trainees with a promo sort by promo name
     async getAllTraineeWithPromoByPromo(){
-      // getUserGroupByPromo
+      // Aggregation of all the trainees for each promos
         const query = 
         `SELECT 
         kanpus_promo.name AS name,
@@ -25,7 +25,7 @@ module.exports = {
 
     // Get all trainees sorted by groups
     async getAllTraineeByGroup(){
-    //getUserGroupByGroup
+      // Aggregation of all the trainees for each groups
       const query = 
       `SELECT 
       kanpus_group.name,
@@ -46,7 +46,7 @@ module.exports = {
 
       //Get all trainees by promo + all trainees without promo
       async getAllTraineeByPromo() {
-        //getUserByGroup
+        // Aggregation of all the trainees with or without promo
         const query = `
           SELECT 
           CASE 
@@ -79,9 +79,9 @@ module.exports = {
         return data;
       },
 
-      // Get all formers sorted by is_ permanent
+      // Get all formers sorted by is_permanent
       async getAllFormerByIsPermanent(){
-        // getUserGroupByIsPermanent
+        // Aggregation of all the former with permanent status
         const query = 
         `SELECT 
         CASE 

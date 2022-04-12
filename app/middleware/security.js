@@ -7,12 +7,14 @@ module.exports = {
         return async (req, res, next)=>{
 
             console.log("authorization level",role);
+            // Token un let token then we slice the token bearer
             let token = req.headers['x-access-token'] || req.headers['authorization'];
             if (!!token && token.startsWith('Bearer ')) {
                 token = token.slice(7, token.length);
             }
     
             console.log(token);
+            // Decoding and verification of the token with the secret key
             if (token) {
                 jwt.verify(token, SECRET_KEY, (err, decoded) => {
                     if (err) {
@@ -22,8 +24,9 @@ module.exports = {
                         req.decoded = decoded;
                         
     
-        
+                        // Setting a lifespan on the token
                         const expiresIn = 24 * 60 * 60;
+                        // Creating a new token
                         const newToken  = jwt.sign({
                             user : decoded.user
                         },
@@ -31,7 +34,7 @@ module.exports = {
                         {
                             expiresIn: expiresIn
                         });
-        
+                        // Setting up the header
                         res.header('Authorization', 'Bearer ' + newToken);
     
                         console.log("authorization level",role);
@@ -39,6 +42,7 @@ module.exports = {
 
                         const roleAuth = role.includes(decoded.user.role)
                         console.log(roleAuth);
+                        // Check of permissions
                         if (roleAuth) {
                             next();
                         }else {

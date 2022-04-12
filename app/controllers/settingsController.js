@@ -2,6 +2,7 @@ const debug = require('debug')('settingsController');
 const settings = require('../config/settings.json');
 const fs = require('fs');
 
+// Controller only useful for reading and rewritting of the structure settings json
 module.exports = {
 
     getAllSetting:(req,res,next) => {

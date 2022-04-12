@@ -2,16 +2,16 @@ const logger = require('../helpers/logger');
 
 const validator = (schema, dataOrigin) => {
     const myMw = (request, response, next) => {
-    // validate sur le request.*
+    // Validate on request
         const { error } = schema.validate(request[dataOrigin]);
-        // checker la présence de la propriété error
-        // si elle est présente, on renvoie au front un message d'erreur
+        // Check of property error
+        // If property error then response send to front
         if (error) {
             logger.info(error.message)
             return response.status(400).json(error.message);
         }
         
-        // sinon, on passe le bébé au middleware suivant
+        // if not, it is sent to the middleware
         return next();
     };
     return myMw;

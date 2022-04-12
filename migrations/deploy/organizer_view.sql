@@ -1,6 +1,8 @@
 -- Deploy kanpus:organizer_view to pg
 
 BEGIN;
+-- Main view of the app
+	--Compiling most of the datas from user, place, event to project on the organizer page
 CREATE VIEW organizer AS
 SELECT 
 	kanpus_event.id AS event_id, 

@@ -5,6 +5,7 @@ const logger = require('./helpers/logger');
 
 const app = express();
 
+// Cors set for token use
 const corsOptions = {
     exposedHeaders: 'Authorization',
   };
@@ -15,9 +16,9 @@ app.use(express.static('./public'));
 
 app.use(express.json());
 
+// Use for the logger
 app.use((req,res,next)=>{
 logger.trace(req.path);
-console.log(req.path);
 next();
 });
 

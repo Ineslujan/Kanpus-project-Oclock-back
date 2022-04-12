@@ -4,7 +4,7 @@ const ApiError = require('../errors/apiError');
 
 module.exports = {
   async getOrganizer(date) {
-
+    // Filtering datas returned by the organizer view to match the week selected on the organizer page
     const query = `SELECT * FROM organizer
     WHERE (
 			organizer.start_date 
@@ -32,7 +32,7 @@ module.exports = {
   },
 
   async checkFormerIsAvailabe(startDate, endDate, update_id) {
-    //checkIsAvailabeFormer
+    // Checking all available formers when choosing date of an event at event creation
     const query = `	SELECT
     kanpus_user.id AS user_id,
     kanpus_user.firstname,
@@ -79,7 +79,7 @@ module.exports = {
   },
 
   async checkPlaceIsAvailabe(startDate, endDate, update_id) {
-  //checkIsAvailabePlace
+  // Checking all available places when choosing date of an event at event creation
     const query = `   SELECT 
     kanpus_place.id,
     kanpus_place.name,
@@ -145,6 +145,7 @@ module.exports = {
   async getAllEventForUser(user_id,page_number) {
     const pageSize = 6;
     const pageOffset = (page_number -1) * pageSize;
+    // Pagination put in place for events of a user
     const query = `
       SELECT * FROM my_course 
       WHERE user_id = $1
@@ -167,12 +168,12 @@ module.exports = {
     const query = `SELECT * FROM update_event($1,$2);`;
     const values = [form,Number(event_id)];
     const data = (await dataBase.query(query,values)).rows;
-    //debug(`> UPDATE updateEventById(): ${query}`);
+    
 
     const queryDelete = `DELETE FROM kanpus_user_has_event WHERE event_id = $1;`;
     const valuesDelete = [event_id];
     await dataBase.query(queryDelete,valuesDelete);
-    //debug(`> DELETE USER FOR updateEventById(): ${queryDelete}`);
+    
 
     const user = form.trainee.concat(form.former);
     console.log("all user",user);

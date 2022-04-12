@@ -51,7 +51,7 @@ module.exports = {
     },
 
     getAllEventForUser: async (req, res, next) => {
-        const user_id = 1 // Alain for the test
+        const user_id = 1; // !! TO BE MODIFIED AS IT'S FOR TEST !!
         const myCourse = await DataMapper.getAllEventForUser(1, req.params.page_number);
         debug(' > getAllEventForUser()');
         if (myCourse) {

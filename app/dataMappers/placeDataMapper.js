@@ -13,7 +13,7 @@ module.exports = {
         FROM kanpus_place
         ORDER BY position;`;
         const data = (await dataBase.query(query)).rows;
-        debug(`> getAllPlace(): ${query}`);
+        debug(`> getAllPlace():`);
         if (!data) {
           throw new ApiError('No data found for getAllPlace()', 404);
         }

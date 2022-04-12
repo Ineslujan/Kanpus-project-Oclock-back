@@ -215,7 +215,7 @@ module.exports = {
     updatePassword: async (req, res, next) => {
         
 
-        let userId = 1;
+        let userId = 1; // !! TO BE MODIFIED AS IT'S FOR TEST !!
         if(req.params.user_id){
             userId = req.params.user_id
         }

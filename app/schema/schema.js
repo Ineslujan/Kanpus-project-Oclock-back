@@ -7,11 +7,13 @@ module.exports.place = Joi.object({
 
 });
 
+// Validations of promo datas
 module.exports.promo = Joi.object({
     name: Joi.string()
 
 });
 
+// Validations of user datas
 module.exports.user = Joi.object({
     firstname: Joi.string(),
     lastname: Joi.string(),
@@ -27,6 +29,8 @@ module.exports.user = Joi.object({
 
 });
 
+// Validations of uevent datas
+    // allowing null or empty string for datas
 module.exports.event = Joi.object({
     name: Joi.string(),
     address: Joi.string().allow(null, ''),
@@ -41,6 +45,7 @@ module.exports.event = Joi.object({
 
 });
 
+// Validations of check_date datas with the date extensions of joi
 module.exports.checkDate = Joi.object({
     name: Joi.string(),
     start_date: Joi.date().format('YYYY-MM-DD hh:mm:ss'),
@@ -48,12 +53,14 @@ module.exports.checkDate = Joi.object({
         
 });
 
+// Validations of signIn datas
 module.exports.signIn = Joi.object({
     email: Joi.string().email(),
     password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
 
 });
 
+// Validations of updatePassword datas
 module.exports.updatePassword = Joi.object({
     old_password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
     new_password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')),
@@ -61,10 +68,12 @@ module.exports.updatePassword = Joi.object({
 
 });
 
+// Validations of updatePassword datas
 module.exports.deletePlace = Joi.object({
     place_id: Joi.number()
 });
 
+// Validations of settings datas
 module.exports.settings = Joi.object({
     name: Joi.string(),
     address: Joi.string(),

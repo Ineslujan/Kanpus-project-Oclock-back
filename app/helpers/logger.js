@@ -1,6 +1,5 @@
 /**
- * Liste des niveaux de log
- *
+ * 
  * "fatal" (60):
  *     The service/app is going to stop or
  *     become unusable now. An operator should definitely look into this soon.
@@ -21,17 +20,18 @@
 
  const bunyan = require('bunyan');
 
- // on prévoit la possibilité d'ajouter d'autres streams plus tard
+ // possibility to add new streams
  const streams = [];
  
  streams.push({
-     level: 'trace', // On ne conserve que les messages à partir du niveau error
+     level: 'trace', // starting loggin from trace errors
      path: './logs/error.log',
-     type: 'rotating-file', // on précise qu'on va faire une rotation de fichier (Nouveau fichier après une période définie pour éviter un big fichier de log qui pourrait atteindre plusieurs dizaines/centaines de Mo)
-     period: '1d', // rotation journalière des fichiers de log
-     count: 3, // on conserve un historique sur 3 jours
+     type: 'rotating-file', // Rotation set on log file
+     period: '1d', // Daily rotation
+     count: 3, // 3 days of saved logs
  });
  
+//  Creation of the logger
  const logger = bunyan.createLogger({
      name: 'Kanpus API',
      streams,

@@ -4,11 +4,12 @@ const router = express.Router();
 const checkJWT = require('./middleware/security')
 const controllerHandler = require('./helpers/controllerHandler');
 
+// Error managemement, data validations
 const validator = require('./middleware/validator');
 const schema = require('./schema/schema');
 const handleError = require('./middleware/handleError');
 
-
+//  All Controllers
 const eventController = require('./controllers/eventController');
 const userController = require('./controllers/userController');
 const placeController = require('./controllers/placeController');
@@ -16,6 +17,7 @@ const settingsController = require('./controllers/settingsController');
 const promoController = require('./controllers/promoController');
 
 // Route LOGIN
+    //  Still under work
 router.post('/signin/',validator(schema.signIn, 'body'), controllerHandler(userController.login));
 router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
     console.log('TEST OK -----------------------');
@@ -65,12 +67,13 @@ router.get('/settings/', controllerHandler(settingsController.getAllSetting));
 router.put('/settings/' ,validator(schema.settings, 'body'),controllerHandler(settingsController.updateAllSetting));
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 
+
+
+// Logger
+router.use(handleError);
+
 //404
 router.use((_req,res)=>{
     res.status(404).json('Sorry cant find that!')
 })
-
-router.use(handleError);
-
-
 module.exports = router;

@@ -19,9 +19,9 @@ module.exports = {
 
    
     async query(...params) {
-        //console.log(...params);
-
-       
+        
         return this.originalClient.query(...params);
+
     },
+
 };
