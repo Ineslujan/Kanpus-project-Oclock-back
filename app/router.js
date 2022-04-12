@@ -15,6 +15,10 @@ router.post('/signin/', controllerHandler(userController.login));
 router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
     console.log('TEST OK -----------------------');
     console.log('decoded',req.decoded.user);
+    res.json({
+        message: "ok" , 
+        decoded :req.decoded.user
+    });
 });
 
 // Routes EVENT
