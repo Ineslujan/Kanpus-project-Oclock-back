@@ -41,7 +41,7 @@ module.exports = {
                             next();
                         }else {
                             console.log('not valid ------------');
-                            return res.status(404).json('Auth_not_valid');
+                            return res.status(403).json('Auth_not_valid');
                         }
 
                         
