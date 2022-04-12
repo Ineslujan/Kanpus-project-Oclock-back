@@ -37,7 +37,7 @@ module.exports = {
         const data = (await dataBase.query(query,values)).rows;
         debug(`> resetAbsenceOfEvent()`);
         if (!data) {
-          throw new ApiError('No data found for resetAbsenceOfEvent()', 404);
+          throw new ApiError('No data found for resetAbsenceOfEvent()', 400)
         }
         return data;
     
@@ -50,16 +50,18 @@ module.exports = {
         SET is_absent = true
         WHERE event_id = $1
         AND user_id = $2
-        RETURNING id;`;
+        RETURNING *;`;
         
         const values = [eventId,userId]
         const data = (await dataBase.query(query,values)).rows[0];
         debug(`> addAbsenceOfEvent()`);
         if (!data) {
-          throw new ApiError('No data found for addAbsenceOfEvent()', 404);
+          throw new ApiError('No data found for addAbsenceOfEvent()', 400);
         }
         return data;
     
-      },
+      }
+
+ 
 
 }

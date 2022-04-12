@@ -158,3 +158,29 @@
 {"name":"Kanpus API","hostname":"teleporter","pid":179590,"level":10,"msg":"/absence/1","time":"2022-04-12T16:17:55.298Z","v":0}
 {"name":"Kanpus API","hostname":"teleporter","pid":180036,"level":10,"msg":"/absence/1","time":"2022-04-12T16:18:59.817Z","v":0}
 {"name":"Kanpus API","hostname":"teleporter","pid":180386,"level":10,"msg":"/absence/1","time":"2022-04-12T16:20:27.096Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":221106,"level":10,"msg":"/absence/event/1","time":"2022-04-12T17:15:56.328Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":221502,"level":10,"msg":"/absence/event/1","time":"2022-04-12T17:17:24.584Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":221723,"level":10,"msg":"/absence/event/1","time":"2022-04-12T17:18:11.389Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":227496,"level":10,"msg":"/absence/event/1","time":"2022-04-12T17:22:06.546Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228092,"level":10,"msg":"/absence/1","time":"2022-04-12T17:25:08.886Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228092,"level":40,"err":{"message":"userAbsent is not defined","name":"ReferenceError","stack":"ReferenceError: userAbsent is not defined\n    at addAbsenceOfEvent (/home/student/apo/projet-gestion-formation-back/app/controllers/absenceController.js:40:18)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async /home/student/apo/projet-gestion-formation-back/app/helpers/controllerHandler.js:3:7"},"msg":"userAbsent is not defined","time":"2022-04-12T17:25:08.945Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228285,"level":10,"msg":"/absence/1","time":"2022-04-12T17:25:34.352Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228451,"level":10,"msg":"/absence/1","time":"2022-04-12T17:26:02.156Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228583,"level":10,"msg":"/absence/1","time":"2022-04-12T17:26:21.981Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228719,"level":10,"msg":"/absence/1","time":"2022-04-12T17:26:43.485Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/absence/1","time":"2022-04-12T17:27:18.069Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/absence/1","time":"2022-04-12T17:28:04.010Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/event/1","time":"2022-04-12T17:28:50.768Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/absence/7","time":"2022-04-12T17:29:17.505Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/absence/2","time":"2022-04-12T17:29:32.918Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/absence/20","time":"2022-04-12T17:29:47.616Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":40,"err":{"message":"No data found for addAbsenceOfEvent()","name":"Error","stack":"Error: No data found for addAbsenceOfEvent()\n    at Object.addAbsenceOfEvent (/home/student/apo/projet-gestion-formation-back/app/dataMappers/absenceDataMapper.js:59:17)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async addAbsenceOfEvent (/home/student/apo/projet-gestion-formation-back/app/controllers/absenceController.js:30:36)\n    at async /home/student/apo/projet-gestion-formation-back/app/helpers/controllerHandler.js:3:7"},"msg":"No data found for addAbsenceOfEvent()","time":"2022-04-12T17:29:47.651Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":228898,"level":10,"msg":"/absence/1","time":"2022-04-12T17:30:09.892Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/absence/1","time":"2022-04-12T17:31:27.269Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/absence/event/1","time":"2022-04-12T17:31:30.992Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/absence/7","time":"2022-04-12T17:31:34.585Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/event/my_course/1","time":"2022-04-12T17:32:05.536Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/absence/9","time":"2022-04-12T17:32:43.793Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/event/my_course/1","time":"2022-04-12T17:33:05.608Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/absence/9","time":"2022-04-12T17:33:22.987Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":235066,"level":10,"msg":"/event/my_course/1","time":"2022-04-12T17:33:37.294Z","v":0}
