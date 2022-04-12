@@ -48,8 +48,8 @@ module.exports.event = Joi.object({
 // Validations of check_date datas with the date extensions of joi
 module.exports.checkDate = Joi.object({
     name: Joi.string(),
-    start_date: Joi.date().format('YYYY-MM-DD hh:mm:ss'),
-    end_date: Joi.date().format('YYYY-MM-DD hh:mm:ss')
+    start_date: Joi.string(),
+    end_date: Joi.string()
         
 });
 

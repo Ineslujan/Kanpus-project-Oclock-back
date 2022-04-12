@@ -4,7 +4,7 @@ const logger = require('../helpers/logger');
 
 const handleError = (error, _, response, next) => {
     
-    debug(error.status)
+    debug('status',error)
     // loggin errors if not 500 as error if not loggin error as warn
     if (!error.status || error.status != 500) {
         logger.warn(error);

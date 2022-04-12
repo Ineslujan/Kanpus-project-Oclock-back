@@ -14,9 +14,10 @@ module.exports = {
     },
 
     addPlace: async (req,res,next) =>{
-        
+
         const newPlace = await DataMapper.addPlace(req.body);
         debug(' > addPlace()');
+        
         if (newPlace) {
             res.json(newPlace)
         } else {

@@ -25,11 +25,12 @@ module.exports = {
       
 
       async addPlace(form) {
-
+       
         const query = `SELECT * FROM add_place($1);`;
         const value = [form];
     
         const data = (await dataBase.query(query, value)).rows[0];
+       
         debug(`> addPlace()`);
         if (!data) {
           throw new ApiError('No data found for > addPlace()', 400);
@@ -45,6 +46,7 @@ module.exports = {
         const value = [form, place_id];
     
         const data = (await dataBase.query(query, value)).rows[0];
+       
         debug(`> updatePlace()`);
         if (!data) {
           throw new ApiError('No data found for > updatePlace()', 400);

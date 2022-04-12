@@ -15,6 +15,7 @@ const userController = require('./controllers/userController');
 const placeController = require('./controllers/placeController');
 const settingsController = require('./controllers/settingsController');
 const promoController = require('./controllers/promoController');
+const absenceController = require('./controllers/absenceController');
 
 // Route LOGIN
     //  Still under work
@@ -67,7 +68,9 @@ router.get('/settings/', controllerHandler(settingsController.getAllSetting));
 router.put('/settings/' ,validator(schema.settings, 'body'),controllerHandler(settingsController.updateAllSetting));
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 
-
+// Routes ABSENCE
+router.get('/absence/:user_id', controllerHandler(absenceController.getAllAbsenceByUser));
+router.patch('/absence/:event_id', controllerHandler(absenceController.addAbsenceOfEvent))
 
 // Logger
 router.use(handleError);
