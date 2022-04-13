@@ -1357,3 +1357,7 @@
 {"name":"Kanpus API","hostname":"teleporter","pid":1230686,"level":10,"msg":"/signin/","time":"2022-04-13T13:39:56.122Z","v":0}
 {"name":"Kanpus API","hostname":"teleporter","pid":1230686,"level":10,"msg":"/settings/","time":"2022-04-13T13:39:56.127Z","v":0}
 {"name":"Kanpus API","hostname":"teleporter","pid":1230686,"level":10,"msg":"/settings/","time":"2022-04-13T13:39:56.131Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1266901,"level":10,"msg":"/absence/event/1","time":"2022-04-13T14:41:47.177Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1266901,"level":10,"msg":"/absence/7","time":"2022-04-13T14:41:59.069Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1266901,"level":10,"msg":"/absence/7","time":"2022-04-13T14:42:01.237Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1266901,"level":10,"msg":"/user/trainee","time":"2022-04-13T14:46:49.944Z","v":0}
