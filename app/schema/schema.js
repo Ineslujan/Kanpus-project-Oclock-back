@@ -37,8 +37,8 @@ module.exports.event = Joi.object({
     note: Joi.string().allow(null, ''),
     equipment: Joi.string().allow(null, ''),
     role: Joi.string().allow(null, ''),
-    start_date: Joi.date().format('YYYY-MM-DD hh:mm:ss'),
-    end_date: Joi.date().format('YYYY-MM-DD hh:mm:ss'),
+    start_date: Joi.string(),
+    end_date: Joi.string(),
     place_id: Joi.number(),
     trainee: Joi.array().items(Joi.number()),
     former: Joi.array().items(Joi.number())
