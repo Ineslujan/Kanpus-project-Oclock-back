@@ -56,15 +56,30 @@ module.exports = {
 
     },
 
-    getUserById: async (req, res, next) => {
+    getFormerById: async (req, res, next) => {
 
-        const user = await DataMapper.getUserById(req.params.user_id);
+        const former = await DataMapper.getFormerById(req.params.user_id);
 
-        user.image = url_avatar + user.image;
+        former.image = url_avatar + former.image;
 
-        if (user) {
-            debug(`> getUserById()`);
-            res.json(user);
+        if (former) {
+            debug(`> getFormerById()`);
+            res.json(former);
+        } else {
+            next();
+        }
+
+    },
+
+    getTraineeById: async (req, res, next) => {
+
+        const trainee = await DataMapper.getTraineeById(req.params.user_id);
+
+        trainee.image = url_avatar + trainee.image;
+
+        if (trainee) {
+            debug(`> getTraineeById()`);
+            res.json(trainee);
         } else {
             next();
         }
@@ -72,16 +87,13 @@ module.exports = {
     },
 
 
-    addUser: async (req, res, next) => {
+    addFomer: async (req, res, next) => {
 
         if (req.body.new_password == req.body.confirm_new_password) {
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(req.body.new_password, salt);
 
-            let form = {}
-            if (req.params.role == 'former') {
-
-                form = {
+                const form = {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     address: req.body.address,
@@ -94,9 +106,26 @@ module.exports = {
                     promo_id: null,
                     role: 'former'
                 }
-            } else if (req.params.role == 'trainee') {
+     
+            const newUser = await DataMapper.addUser(form);
+            if (newUser) {
+                debug(`> addUser()`);
+                delete newUser.password;
+                res.json(newUser);
+            } else {
+                next();
+            }
+        }
 
-                form = {
+    },
+
+    addTrainee: async (req, res, next) => {
+
+        if (req.body.new_password == req.body.confirm_new_password) {
+            const salt = await bcrypt.genSalt(10);
+            const encryptedPassword = await bcrypt.hash(req.body.new_password, salt);
+    
+                const form = {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     address: req.body.address,
@@ -109,12 +138,10 @@ module.exports = {
                     promo_id: req.body.promo_id,
                     role: 'trainee'
                 }
-            } else {
-                next();
-            }
+     
             const newUser = await DataMapper.addUser(form);
             if (newUser) {
-                debug(`> addUser() ${form.role}`);
+                debug(`> addTrainee()`);
                 delete newUser.password;
                 res.json(newUser);
             } else {
@@ -247,12 +274,24 @@ module.exports = {
 
     },
 
-    deleteUser: async (req, res, next) => {
-        const user = await DataMapper.deleteUser(req.params.user_id)
+    deleteFormer: async (req, res, next) => {
+        const former = await DataMapper.deleteFormer(req.params.user_id)
 
-        if (user) {
-            debug(`> deleteUser()`);
-            res.json({message:`Place :${user.id} is removed`, id:Number(user.id)});
+        if (former) {
+            debug(`> deleteFormer()`);
+            res.json({message:`former :${former.id} is removed`, id:Number(former.id)});
+        } else {
+            next();
+        }
+
+    },
+
+    deleteTrainee: async (req, res, next) => {
+        const trainee = await DataMapper.deleteTrainee(req.params.user_id)
+
+        if (trainee) {
+            debug(`> deleteTrainee()`);
+            res.json({message:`Trainee :${trainee.id} is removed`, id:Number(trainee.id)});
         } else {
             next();
         }

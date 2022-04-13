@@ -61,6 +61,7 @@ module.exports = {
                 'phone_number',kanpus_user.phone_number,
                 'email',kanpus_user.email,
                 'image',kanpus_user.image,
+                'promo_id' ,kanpus_promo.id,
                 'promo' ,kanpus_promo.name
           )) 
         FILTER (WHERE kanpus_user.firstname IS NOT NULL), '[]') AS trainee
@@ -115,7 +116,7 @@ module.exports = {
     
       },
 
-      async getUserById (user_id) {
+      async getFormerById (user_id) {
 
         const query = `
         SELECT 
@@ -131,12 +132,42 @@ module.exports = {
           FROM kanpus_user
           FULL JOIN kanpus_promo ON kanpus_user.promo_id = kanpus_promo.id
           WHERE kanpus_user.id = $1
+          AND kanpus_user.role = 'former'
         ;`;
       
       const data = (await dataBase.query(query, [user_id])).rows[0];
-      debug(`> getUserById()`);
+      debug(`> getFormerUserById()`);
         if (!data) {
-          throw new ApiError('No data found for > getUserById()', 404);
+          throw new ApiError('No data found for > getFormerUserById()', 404);
+        }
+        
+        return data;
+      
+      },
+
+      async getTraineeById (user_id) {
+
+        const query = `
+        SELECT 
+          kanpus_user.id,
+          kanpus_user.firstname,
+          kanpus_user.lastname,
+          kanpus_user.address,
+          kanpus_user.phone_number,
+          kanpus_user.email,
+          kanpus_user.image,
+          kanpus_user.color,
+          kanpus_promo.name AS promo
+          FROM kanpus_user
+          FULL JOIN kanpus_promo ON kanpus_user.promo_id = kanpus_promo.id
+          WHERE kanpus_user.id = $1 
+          AND kanpus_user.role = 'trainee'
+        ;`;
+      
+      const data = (await dataBase.query(query, [user_id])).rows[0];
+      debug(`> getTraineeById()`);
+        if (!data) {
+          throw new ApiError('No data found for > getTraineeById()', 404);
         }
         
         return data;
@@ -232,16 +263,39 @@ module.exports = {
         return data;
       },
 
-      async deleteUser(user_id) {
+      async deleteFormer(user_id) {
 
-        const query = `DELETE FROM kanpus_user WHERE id = $1 RETURNING id`;
+        const query = `
+        DELETE FROM kanpus_user 
+        WHERE id = $1 
+        AND kanpus_user.role = 'former'
+        RETURNING id`;
 
         const value = [user_id];
     
         const data = (await dataBase.query(query, value)).rows[0];
-        debug(`> deleteUser()`);
+        debug(`> deleteFormer()`);
         if (!data) {
-          throw new ApiError('No data found for > deleteUser()', 400);
+          throw new ApiError('No data found for > deleteFormer()', 400);
+        }
+        
+        return data;
+      },
+
+      async deleteTrainee(user_id) {
+
+        const query = `
+        DELETE FROM kanpus_user 
+        WHERE id = $1 
+        AND kanpus_user.role = 'trainee'
+        RETURNING id`;
+
+        const value = [user_id];
+    
+        const data = (await dataBase.query(query, value)).rows[0];
+        debug(`> deleteTrainee()`);
+        if (!data) {
+          throw new ApiError('No data found for > deleteTrainee()', 400);
         }
         
         return data;
