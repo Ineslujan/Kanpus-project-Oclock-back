@@ -1,6 +1,7 @@
 -- Deploy kanpus:view_my_course to pg
 
 BEGIN;
+-- Rejoigning table kanpus_user to the organizer view to target a specific user_id
 CREATE OR REPLACE VIEW my_course AS
 SELECT organizer.event_id,
 		organizer.name,
