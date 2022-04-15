@@ -94,4 +94,10 @@
 git push heroku API-init:main
 
 psql -d kanpus -f ./data/seed.sql
+
+heroku logs --tail
+
+sqitch revert heroku
+sqitch deploy heroku
+heroku pg:psql -f ./data/seed-v2.sql
 ```
