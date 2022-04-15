@@ -19,6 +19,7 @@ const absenceController = require('./controllers/absenceController');
 
 
 // Route LOGIN
+<<<<<<< HEAD
     //  Still under work
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 router.post('/signin/', validator(schema.signIn, 'body'), controllerHandler(userController.login));
@@ -33,6 +34,17 @@ router.post('/signin/', validator(schema.signIn, 'body'), controllerHandler(user
 //     });
 // });
 
+=======
+router.post('/signin/', controllerHandler(userController.login));
+router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
+    console.log('TEST OK -----------------------');
+    console.log('decoded',req.decoded.user);
+    res.json({
+        message: "ok" , 
+        decoded :req.decoded.user
+    });
+});
+>>>>>>> 4d7bb1be7d1ce48dc529d88152e1e0714259e480
 
 // Routes EVENT
 router.get('/event/organizer/:date', checkJWT.check(['admin','former']), controllerHandler(eventController.getOrganizer));

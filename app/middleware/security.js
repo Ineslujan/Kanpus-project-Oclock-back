@@ -47,7 +47,10 @@ module.exports = {
                             next();
                         }else {
                             console.log('not valid ------------');
+<<<<<<< HEAD
                             logger.warn('Auth_not_valid');
+=======
+>>>>>>> 4d7bb1be7d1ce48dc529d88152e1e0714259e480
                             return res.status(403).json('Auth_not_valid');
                         }
 
