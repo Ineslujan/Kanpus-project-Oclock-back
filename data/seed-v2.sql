@@ -130,7 +130,7 @@ INSERT INTO kanpus_event (
 	'2022-04-15 08:45:00',
 	'0 8:00:00',
 	7
-),
+);
 
 
 
@@ -341,7 +341,6 @@ INSERT INTO kanpus_user_has_event (
     (2,10),
     (5,11),
     (3,11),
-    (4,12),
 	(8,1),
 	(8,2),
 	(8,3),
@@ -397,44 +396,6 @@ INSERT INTO kanpus_user_has_event (
 	(18,3),
 	(18,7),
 	(18,11);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-;
 
 
 --kanpus_user_has_group
