@@ -130,6 +130,16 @@ INSERT INTO kanpus_event (
 	'2022-04-15 08:45:00',
 	'0 8:00:00',
 	7
+),
+(
+	'Smartphone video',
+	null,
+	null,
+	'iphone',
+	null,
+	'2021-09-27 08:45:00',
+	'0 4:00:00',
+	6
 );
 
 
@@ -172,11 +182,11 @@ INSERT INTO kanpus_user (
 	'Deloin',
 	'45 rue fernand michel 84000 AVIGNON',
 	'+33678956412',
-	'admin@gmail.com',
-	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'a.deloin@gmail.com',
+	'123456789',
 	'thumbnail.png',
 	'#269987',
-	'admin',
+	'former',
 	true,
 	null
 ),
@@ -185,8 +195,8 @@ INSERT INTO kanpus_user (
 	'Lalouche',
 	'145 avenue René Coty 84000 AVIGNON',
 	'+33682564713',
-	'former@gmail.com',
-	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'francis.lallouche@gmail.com',
+	'123456789',
 	'thumbnail.png',
 	'#269987',
 	'former',
@@ -198,11 +208,11 @@ INSERT INTO kanpus_user (
 	'Lalouche',
 	'145 avenue René Coty 84000 AVIGNON',
 	'+33682564713',
-	'trainee@gmail.com',
-	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'remy.lallouche@gmail.com',
+	'123456789',
 	'thumbnail.png',
 	'#269987',
-	'trainee',
+	'former',
 	false,
 	null
 ),
@@ -313,6 +323,7 @@ INSERT INTO kanpus_user_has_event (
 	user_id,
 	event_id
 ) VALUES 
+	(16,12),
     (5,1),
     (6,1),
     (7,1),
@@ -340,6 +351,7 @@ INSERT INTO kanpus_user_has_event (
     (2,10),
     (5,11),
     (3,11),
+    (4,12),
 	(8,1),
 	(8,2),
 	(8,3),
@@ -447,4 +459,3 @@ INSERT INTO kanpus_user_has_group (
 
 
 COMMIT;
-
