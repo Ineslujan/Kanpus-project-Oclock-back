@@ -1,25 +1,4 @@
-
-
-Modification des datas sauf role et mot de passe
-	UPDATE /user/former/:id   					* admin 
-	UPDATE /user/trainee/:id  					* admin / former
-
-Modification du mot de pass de l'utilisateur connecté
-	UPDATE /user/password/    					* admin / former / trainee
-
-Modification du mot de pass d'un autre utilisateur
-	UPDATE /user/password/former/:id 			* admin
-	UPDATE /user/password/trainee/:id 			* admin / former
-
-GET MY-PROFIL
-
-| METHOD | ROUTE                      |                    Accès |
-|--------|----------------------------|--------------------------|
-| UPDATE | /user/former/:user_id      |                    admin |
-| UPDATE | /user/trainee/:user_id     |           admin / former |
-| UPDATE | /user/password/            | admin / former / trainee |
-| UPDATE | /user/password/:user_id 	  |                    admin |
-
+# PERMISSIONS
 
 ## SIGNIN
 
@@ -46,30 +25,48 @@ GET MY-PROFIL
 
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
-|get     |/user/event_form/              |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
-|get     |/user/trainee/                 |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
-|get     |/user/former                   |    ✔️  |   ⛔   |    ⛔    |    ⛔    |
-|get     |/user/:user_id                 |    ✔️  |   ✔️    |    ⛔    |    ⛔    |*
-|post    |/user/:role/                   |    ✔️  |   ✔️   |    ⛔    |    ⛔    |*
-|patch   |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔    |
-|patch   |/user/trainee/:user_id         |    ✔️  |   ✔️   |    ⛔    |    ⛔    |
-|patch   |/user/password                 |    ✔️  |   ✔️    |    ✔️    |    ⛔    |
-|patch   |/user/password/:user_id        |    ✔️  |   ⛔   |    ⛔    |    ⛔    |
-|delete  |/user/:user_id                 |    ✔️  |   ⛔   |    ⛔    |    ⛔    |*
+|get     |/user/event_form/              |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+
+
+## TRAINEE
+| METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
+|--------|-------------------------------|-------|--------|---------|-------|
+|get     |/user/trainee/                 |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|get     |/user/trainee/:user_id         |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|get     |/user/trainee/:user_id         |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|post    |/user/trainee/                 |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|patch   |/user/trainee/:user_id         |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|delete  |/user/trainee/:user_id         |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+
+
+
+## FORMER
+| METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
+|--------|-------------------------------|-------|--------|---------|-------|
+|get     |/user/former                   |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|get     |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|post    |/user/former/                  |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|patch   |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|delete  |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+
+
+## PASSWORD
+| METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
+|--------|-------------------------------|-------|--------|---------|-------|
+|patch   |/user/password                 |    ✔️  |   ✔️    |    ✔️    |    ⛔ |
+|patch   |/user/password/:user_id        |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
 
 
 ## PLACE
-
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
-|get     |/place/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
-|post    |/place/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
-|patch   |/place/:place_id               |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
-|delete  |/place/:place_id               |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
+|get     |/place/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|post    |/place/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|patch   |/place/:place_id               |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|delete  |/place/:place_id               |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
 
 
 ## PROMO
-
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
 |get     |/promo/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
@@ -79,7 +76,6 @@ GET MY-PROFIL
 
 
 ## SETTINGS
-
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
 |get     |/settings/                     |    ✔️  |   ⛔   |    ⛔    |    ⛔    |
@@ -87,7 +83,6 @@ GET MY-PROFIL
 
 
 ## ABSENCE
-
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
 |get     |/absence/:user_id              |    ✔️  |   ✔️    |    ⛔    |    ⛔    |
