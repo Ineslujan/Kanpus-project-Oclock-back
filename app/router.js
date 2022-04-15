@@ -21,73 +21,75 @@ const absenceController = require('./controllers/absenceController');
 // Route LOGIN
     //  Still under work
 router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
-router.post('/signin/',validator(schema.signIn, 'body'), controllerHandler(userController.login));
-router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
-    console.log('TEST OK -----------------------');
-    console.log('decoded',req.decoded.user);
-    res.json({
-        message: "ok" , 
-        decoded :req.decoded.user
-    });
-});
+router.post('/signin/', validator(schema.signIn, 'body'), controllerHandler(userController.login));
+
+// TEST ROUTE FOR AUTH
+// router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
+//     console.log('TEST OK -----------------------');
+//     console.log('decoded',req.decoded.user);
+//     res.json({
+//         message: "ok" , 
+//         decoded :req.decoded.user
+//     });
+// });
 
 
 // Routes EVENT
-router.get('/event/organizer/:date', controllerHandler(eventController.getOrganizer));
-router.post('/event/check_date/:event_id',validator(schema.checkDate, 'body'), controllerHandler(eventController.checkIsAvailabe));
-router.post('/event/',validator(schema.event, 'body'), controllerHandler(eventController.addEvent));
-router.get('/event/my_course/:page_number',controllerHandler(eventController.getAllEventForUser));
-router.patch('/event/:event_id',validator(schema.event, 'body'), controllerHandler(eventController.updateEventById));
-router.get('/event/:event_id', controllerHandler(eventController.getEventById));
-router.delete('/event/:event_id', controllerHandler(eventController.deleteEventById));
+router.get('/event/organizer/:date', checkJWT.check(['admin','former']), controllerHandler(eventController.getOrganizer));
+router.post('/event/check_date/:event_id', checkJWT.check(['admin','former']), validator(schema.checkDate, 'body'), controllerHandler(eventController.checkIsAvailabe));
+router.post('/event/',validator(schema.event, 'body'), checkJWT.check(['admin','former']),  controllerHandler(eventController.addEvent));
+router.get('/event/my_course/:page_number', checkJWT.check(['admin','former','trainee']), controllerHandler(eventController.getAllEventForUser));
+router.patch('/event/:event_id', checkJWT.check(['admin','former']), validator(schema.event, 'body'), controllerHandler(eventController.updateEventById));
+router.get('/event/:event_id', checkJWT.check(['admin','former','trainee']), controllerHandler(eventController.getEventById));
+router.delete('/event/:event_id', checkJWT.check(['admin','former']), controllerHandler(eventController.deleteEventById));
 
 
 // Routes USER 
     // !! ORDER MATTERS !!
     
-router.get('/user/event_form/', controllerHandler(userController.getTraineeByPromoAndGroup));
+router.get('/user/event_form/', checkJWT.check(['admin','former']), controllerHandler(userController.getTraineeByPromoAndGroup));
    
     // FORMER
-router.get('/user/former/', controllerHandler(userController.getAllFormerByIsPermanent));
-router.get('/user/former/:user_id', controllerHandler(userController.getFormerById));
-router.post('/user/former/', validator(schema.user, 'body'), controllerHandler(userController.addFomer));
-router.patch('/user/former/:user_id', validator(schema.user, 'body'), controllerHandler(userController.updateFormer));
-router.delete('/user/former/:user_id', controllerHandler(userController.deleteFormer));
+router.get('/user/former/', checkJWT.check(['admin']), controllerHandler(userController.getAllFormerByIsPermanent));
+router.get('/user/former/:user_id', checkJWT.check(['admin']), controllerHandler(userController.getFormerById));
+router.post('/user/former/', checkJWT.check(['admin']), validator(schema.user, 'body'), controllerHandler(userController.addFomer));
+router.patch('/user/former/:user_id', checkJWT.check(['admin']), validator(schema.user, 'body'), controllerHandler(userController.updateFormer));
+router.delete('/user/former/:user_id', checkJWT.check(['admin']), controllerHandler(userController.deleteFormer));
 
     // TRAINEE
-router.get('/user/trainee/', controllerHandler(userController.getAllTraineeByPromo));
-router.get('/user/trainee/:user_id', controllerHandler(userController.getTraineeById));
-router.post('/user/trainee/', validator(schema.user, 'body'), controllerHandler(userController.addTrainee));
-router.patch('/user/trainee/:user_id', validator(schema.user, 'body'), controllerHandler(userController.updateTrainee));
-router.delete('/user/trainee/:user_id', controllerHandler(userController.deleteTrainee));
+router.get('/user/trainee/',  checkJWT.check(['admin','former']), controllerHandler(userController.getAllTraineeByPromo));
+router.get('/user/trainee/:user_id',  checkJWT.check(['admin','former']), controllerHandler(userController.getTraineeById));
+router.post('/user/trainee/',  checkJWT.check(['admin','former']), validator(schema.user, 'body'), controllerHandler(userController.addTrainee));
+router.patch('/user/trainee/:user_id',  checkJWT.check(['admin','former']), validator(schema.user, 'body'), controllerHandler(userController.updateTrainee));
+router.delete('/user/trainee/:user_id',  checkJWT.check(['admin','former']), controllerHandler(userController.deleteTrainee));
 
     // PASSWORD
-router.patch('/user/password', validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
-router.patch('/user/password/:user_id', validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
+router.patch('/user/password', checkJWT.check(['admin','former','trainee']), validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
+router.patch('/user/password/admin/:user_id', checkJWT.check(['admin']), controllerHandler(userController.updatePasswordById));
 
 
 // Routes PLACE
-router.get('/place/', controllerHandler(placeController.getAllPlace));
-router.post('/place/',validator(schema.place, 'body'), controllerHandler(placeController.addPlace));
-router.patch('/place/:place_id',validator(schema.place, 'body'), controllerHandler(placeController.updatePlacebyId));
-router.delete('/place/:place_id', controllerHandler(placeController.deletePlaceById));
+router.get('/place/', checkJWT.check(['admin','former']), controllerHandler(placeController.getAllPlace));
+router.post('/place/', checkJWT.check(['admin','former']), validator(schema.place, 'body'), controllerHandler(placeController.addPlace));
+router.patch('/place/:place_id', checkJWT.check(['admin','former']), validator(schema.place, 'body'), controllerHandler(placeController.updatePlacebyId));
+router.delete('/place/:place_id', checkJWT.check(['admin','former']), controllerHandler(placeController.deletePlaceById));
 
 
 // Routes PROMO
-router.get('/promo/', controllerHandler(promoController.getAllPromo));
-router.post('/promo/',validator(schema.promo, 'body'), controllerHandler(promoController.addPromo));
-router.patch('/promo/:promo_id',validator(schema.promo, 'body'), controllerHandler(promoController.updatePromoById));
-router.delete('/promo/:promo_id', controllerHandler(promoController.deletePromoById));
+router.get('/promo/', checkJWT.check(['admin','former']), controllerHandler(promoController.getAllPromo));
+router.post('/promo/', checkJWT.check(['admin','former']), validator(schema.promo, 'body'), controllerHandler(promoController.addPromo));
+router.patch('/promo/:promo_id', checkJWT.check(['admin','former']), validator(schema.promo, 'body'), controllerHandler(promoController.updatePromoById));
+router.delete('/promo/:promo_id', checkJWT.check(['admin','former']), controllerHandler(promoController.deletePromoById));
 
 
 // Routes SETTINGS
-router.get('/settings/', controllerHandler(settingsController.getAllSetting));
-router.put('/settings/' ,validator(schema.settings, 'body'),controllerHandler(settingsController.updateAllSetting));
+router.get('/settings/', checkJWT.check(['admin']), controllerHandler(settingsController.getAllSetting));
+router.put('/settings/' , checkJWT.check(['admin']), validator(schema.settings, 'body'),controllerHandler(settingsController.updateAllSetting));
 
 
 // Routes ABSENCE
-router.get('/absence/:user_id', controllerHandler(absenceController.getAllAbsenceByUser));
-router.patch('/absence/:event_id', controllerHandler(absenceController.addAbsenceOfEvent));
+router.get('/absence/:user_id', checkJWT.check(['admin','former']), controllerHandler(absenceController.getAllAbsenceByUser));
+router.patch('/absence/:event_id', checkJWT.check(['admin','former']), controllerHandler(absenceController.addAbsenceOfEvent));
 
 
 // LOGGER

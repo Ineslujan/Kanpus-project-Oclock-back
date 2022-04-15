@@ -103,7 +103,7 @@ module.exports = {
         )) 
         FILTER (WHERE kanpus_user.firstname IS NOT NULL), '[]') AS former
         FROM kanpus_user
-        WHERE kanpus_user.role = 'former'
+        WHERE kanpus_user.role != 'trainee'
         GROUP BY kanpus_user.is_permanent
         ORDER BY is_permanent DESC
     ;`;
@@ -132,7 +132,7 @@ module.exports = {
           FROM kanpus_user
           FULL JOIN kanpus_promo ON kanpus_user.promo_id = kanpus_promo.id
           WHERE kanpus_user.id = $1
-          AND kanpus_user.role = 'former'
+          AND kanpus_user.role != 'trainee'
         ;`;
       
       const data = (await dataBase.query(query, [user_id])).rows[0];
@@ -207,7 +207,7 @@ module.exports = {
         const query = `
         SELECT 
           CASE 
-            WHEN kanpus_user.role = 'former' THEN true
+            WHEN kanpus_user.role != 'trainee' THEN true
 	          WHEN kanpus_user.role = 'trainee' THEN false
         ELSE NULL
         END AS is_former
@@ -268,7 +268,7 @@ module.exports = {
         const query = `
         DELETE FROM kanpus_user 
         WHERE id = $1 
-        AND kanpus_user.role = 'former'
+        AND kanpus_user.role != 'trainee'
         RETURNING id`;
 
         const value = [user_id];

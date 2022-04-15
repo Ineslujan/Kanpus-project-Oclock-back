@@ -4,8 +4,8 @@
 
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
-|get     |/signin/                       |    ✔️  |   ✔️    |    ✔️    |    ✔️    |
-|post    |/signin/                       |    ✔️  |   ✔️    |    ✔️    |    ✔️    |
+|get     |/signin/                       |    ✔️  |   ✔️    |    ✔️    |    ✔️  |
+|post    |/signin/                       |    ✔️  |   ✔️    |    ✔️    |    ✔️  |
 
 
 ## EVENT
@@ -60,10 +60,11 @@
 ## PLACE
 | METHOD | ROUTE                         | ADMIN | FORMER | TRAINEE | GUEST |
 |--------|-------------------------------|-------|--------|---------|-------|
-|get     |/place/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
-|post    |/place/                        |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
-|patch   |/place/:place_id               |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
-|delete  |/place/:place_id               |    ✔️  |   ✔️    |    ⛔    |    ⛔ |
+|get     |/user/former                   |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|get     |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|post    |/user/former/                  |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|patch   |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
+|delete  |/user/former/:user_id          |    ✔️  |   ⛔   |    ⛔    |    ⛔ |
 
 
 ## PROMO
@@ -94,4 +95,49 @@
 git push heroku API-init:main
 
 psql -d kanpus -f ./data/seed.sql
+
+heroku logs --tail
+
+sqitch revert heroku
+sqitch deploy heroku
+heroku pg:psql -f ./data/seed-v2.sql
 ```
+(
+	'admin',
+	'admin',
+	'145 avenue admin Coty 84000 AVIGNON',
+	'+33682564713',
+	'admin@gmail.com',
+	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'thumbnail.png',
+	'#269987',
+	'admin',
+	true,
+	null
+),
+(
+	'former',
+	'former',
+	'145 avenue admin Coty 84000 AVIGNON',
+	'+33682564713',
+	'former@gmail.com',
+	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'thumbnail.png',
+	'#269987',
+	'former',
+	true,
+	null
+),
+(
+	'trainee',
+	'trainee',
+	'26 rue michel patoulachy 84000 AVIGNON',
+	'+33698765426',
+	'trainee@gmail.com',
+	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'thumbnail.png',
+	'#269987',
+	'trainee',
+	null,
+	1
+)

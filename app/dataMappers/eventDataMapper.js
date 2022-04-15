@@ -62,7 +62,7 @@ module.exports = {
             ) )
 		AND kanpus_event.id != $3
         )AS is_availabe ON is_availabe.id = kanpus_user.id 
-        WHERE kanpus_user.role = 'former'
+        WHERE kanpus_user.role != 'trainee'
         GROUP BY kanpus_user.id
         ORDER BY kanpus_user.is_permanent DESC;`;
 
