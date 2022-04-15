@@ -1451,3 +1451,20 @@
 {"name":"Kanpus API","hostname":"teleporter","pid":1025767,"level":10,"msg":"/signin","time":"2022-04-15T08:06:37.463Z","v":0}
 {"name":"Kanpus API","hostname":"teleporter","pid":1025767,"level":10,"msg":"/signin","time":"2022-04-15T08:06:44.212Z","v":0}
 {"name":"Kanpus API","hostname":"teleporter","pid":1025767,"level":10,"msg":"/signin","time":"2022-04-15T08:06:55.213Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1074078,"level":10,"msg":"/user/former","time":"2022-04-15T11:02:29.690Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1074742,"level":10,"msg":"/user/former","time":"2022-04-15T11:06:03.134Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1074742,"level":10,"msg":"/user/former/2","time":"2022-04-15T11:07:26.420Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1074742,"level":10,"msg":"/user/former/48","time":"2022-04-15T11:07:39.441Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1074742,"level":40,"err":{"message":"No data found for > getFormerUserById()","name":"Error","stack":"Error: No data found for > getFormerUserById()\n    at Object.getFormerById (/home/student/apo/projet-gestion-formation-back/app/dataMappers/userDataMapper.js:141:17)\n    at processTicksAndRejections (node:internal/process/task_queues:96:5)\n    at async getFormerById (/home/student/apo/projet-gestion-formation-back/app/controllers/userController.js:61:24)\n    at async /home/student/apo/projet-gestion-formation-back/app/helpers/controllerHandler.js:3:7"},"msg":"No data found for > getFormerUserById()","time":"2022-04-15T11:07:39.461Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1075178,"level":10,"msg":"/user/former/48","time":"2022-04-15T11:08:05.483Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1079684,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:47:42.417Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1082444,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:50:03.317Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1082589,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:50:22.511Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1082711,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:50:39.640Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1082947,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:51:17.462Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1083144,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:51:43.026Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1083636,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:53:25.897Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1083636,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:54:36.210Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1084096,"level":10,"msg":"/event/my_course/1","time":"2022-04-15T11:54:48.905Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1085850,"level":10,"msg":"/user/password","time":"2022-04-15T12:05:13.850Z","v":0}
+{"name":"Kanpus API","hostname":"teleporter","pid":1087592,"level":10,"msg":"/user/password/admin/1","time":"2022-04-15T12:09:53.293Z","v":0}

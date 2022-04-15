@@ -65,7 +65,7 @@ router.delete('/user/trainee/:user_id',  checkJWT.check(['admin','former']), con
 
     // PASSWORD
 router.patch('/user/password', checkJWT.check(['admin','former','trainee']), validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
-router.patch('/user/password/:user_id', checkJWT.check(['admin']),  validator(schema.updatePassword, 'body'), controllerHandler(userController.updatePassword));
+router.patch('/user/password/admin/:user_id', checkJWT.check(['admin']), controllerHandler(userController.updatePasswordById));
 
 
 // Routes PLACE

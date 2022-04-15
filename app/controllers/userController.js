@@ -240,12 +240,9 @@ module.exports = {
     },
 
     updatePassword: async (req, res, next) => {
-        
+        console.log('user_id',req.decoded.user.id);
 
-        let userId = 1; // !! TO BE MODIFIED AS IT'S FOR TEST !!
-        if(req.params.user_id){
-            userId = req.params.user_id
-        }
+        let userId = req.decoded.user.id; 
 
         const oldPassword = await DataMapper.getPasswordById(userId);
         const validPwd = await bcrypt.compare(req.body.old_password, oldPassword.password);
@@ -254,6 +251,31 @@ module.exports = {
                 error: "Ce n'est pas le bon mot de passe."
             });
         }
+        if (req.body.new_password != req.body.repeat_password) {
+            return res.json({
+                error: "Les 2 mots de passe ne sont pas identiques"
+            });
+        }
+
+        const salt = await bcrypt.genSalt(10);
+        const encryptedPassword = await bcrypt.hash(req.body.new_password, salt);
+
+        const data = await DataMapper.updatePassword(encryptedPassword, userId);
+
+        if (data) {
+            debug(`> updatePassword()`);
+            res.json({ Message: "Mot de passe modifié" });
+        } else {
+            next();
+        }
+
+    },
+
+    updatePasswordById: async (req, res, next) => {
+        console.log('user_id',req.decoded.user.id);
+
+        let userId = req.params.user_id
+
         if (req.body.new_password != req.body.repeat_password) {
             return res.json({
                 error: "Les 2 mots de passe ne sont pas identiques"

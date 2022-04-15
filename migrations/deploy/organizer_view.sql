@@ -25,7 +25,7 @@ SELECT
 	JOIN kanpus_user_has_event ON kanpus_user_has_event.event_id = kanpus_event.id
 	LEFT JOIN kanpus_user kanpus_user_former 
 	ON kanpus_user_has_event.user_id = kanpus_user_former.id
-	AND kanpus_user_former.role = 'former'
+	AND kanpus_user_former.role != 'trainee'
 	LEFT JOIN kanpus_user kanpus_user_trainee 
 	ON kanpus_user_has_event.user_id = kanpus_user_trainee.id
 	AND kanpus_user_trainee.role = 'trainee'
