@@ -177,7 +177,8 @@ INSERT INTO kanpus_user (
 	role,
 	is_permanent,
 	promo_id
-) VALUES (
+) VALUES 
+(
 	'Alain',
 	'Deloin',
 	'45 rue fernand michel 84000 AVIGNON',
@@ -307,7 +308,49 @@ INSERT INTO kanpus_user (
 ('Brendan', 'Kihn', '5974 Estevan Mountains Suite 153', '(572) 554-9939', 'Sonia3@yahoo.com', '1234', 'thumbnail.png','#269987', 'trainee', null, 1),
 ('Dee', 'Littel', '8403 Easton Fords Apt. 345', '516-928-7466', 'Maci16@yahoo.com', '1234', 'thumbnail.png','#269987', 'trainee', null, 1),
 ('Ed', 'Harris', '55304 Sheldon Streets Suite 557', '968-399-2543', 'Ferne_Fisher@gmail.com', '1234', 'thumbnail.png','#269987', 'trainee', null, 1),
-('Donna', 'Gorczany', '44666 Marquardt Key Apt. 286', '1-906-491-3161', 'Alphonso45@hotmail.com', '1234', 'thumbnail.png','#269987', 'trainee', null, 1);
+('Donna', 'Gorczany', '44666 Marquardt Key Apt. 286', '1-906-491-3161', 'Alphonso45@hotmail.com', '1234', 'thumbnail.png','#269987', 'trainee', null, 1),
+(
+	'admin',
+	'admin',
+	'145 avenue admin Coty 84000 AVIGNON',
+	'+33682564713',
+	'admin@gmail.com',
+	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'thumbnail.png',
+	'#269987',
+	'admin',
+	true,
+	null
+),
+(
+	'former',
+	'former',
+	'145 avenue admin Coty 84000 AVIGNON',
+	'+33682564713',
+	'former@gmail.com',
+	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'thumbnail.png',
+	'#269987',
+	'former',
+	true,
+	null
+),
+(
+	'trainee',
+	'trainee',
+	'26 rue michel patoulachy 84000 AVIGNON',
+	'+33698765426',
+	'trainee@gmail.com',
+	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
+	'thumbnail.png',
+	'#269987',
+	'trainee',
+	null,
+	1
+);
+
+
+
 --kanpus_group
 INSERT INTO kanpus_group (name) VALUES
 ('GRP1'),
