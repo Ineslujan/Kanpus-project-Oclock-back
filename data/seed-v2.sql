@@ -131,16 +131,7 @@ INSERT INTO kanpus_event (
 	'0 8:00:00',
 	7
 ),
-(
-	'Smartphone video',
-	null,
-	null,
-	'iphone',
-	null,
-	'2021-09-27 08:45:00',
-	'0 4:00:00',
-	6
-);
+
 
 
 --kanpus_promo
