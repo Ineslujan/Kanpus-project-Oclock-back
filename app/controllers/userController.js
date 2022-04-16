@@ -93,13 +93,17 @@ module.exports = {
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(req.body.new_password, salt);
 
+            let image = 'thumbnail.jpg'
+            if(req.body.image == ''){
+                image = req.body.image;
+            }
                 const form = {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     address: req.body.address,
                     phone_number: req.body.phone_number,
                     email: req.body.email,
-                    image: 'thumbnail.png',
+                    image: req.body.image,
                     color: req.body.color,
                     password: encryptedPassword,
                     is_permanent: req.body.is_permanent,
@@ -124,14 +128,18 @@ module.exports = {
         if (req.body.new_password == req.body.confirm_new_password) {
             const salt = await bcrypt.genSalt(10);
             const encryptedPassword = await bcrypt.hash(req.body.new_password, salt);
-    
+          
+            let image = 'thumbnail.jpg'
+            if(req.body.image){
+                image = req.body.image;
+            }
                 const form = {
                     firstname: req.body.firstname,
                     lastname: req.body.lastname,
                     address: req.body.address,
                     phone_number: req.body.phone_number,
                     email: req.body.email,
-                    image: 'thumbnail.png',
+                    image: req.body.image,
                     color: null,
                     password: encryptedPassword,
                     is_permanent: null,

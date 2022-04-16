@@ -2,9 +2,11 @@ const express = require('express');
 const router = require('./router');
 const cors = require('cors');
 const logger = require('./helpers/logger');
+const fileUpload = require('express-fileupload');
 
 const app = express();
 
+app.use(fileUpload());
 // Cors set for token use
 const corsOptions = {
     exposedHeaders: 'Authorization',

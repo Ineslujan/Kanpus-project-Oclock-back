@@ -92,6 +92,9 @@
 
 
 ```shell
+sqitch revert -y && sqitch deploy && psql -d kanpus -f ./data/seed-v3.sql
+
+
 git push heroku API-init:main
 
 psql -d kanpus -f ./data/seed.sql

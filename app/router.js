@@ -16,18 +16,12 @@ const placeController = require('./controllers/placeController');
 const settingsController = require('./controllers/settingsController');
 const promoController = require('./controllers/promoController');
 const absenceController = require('./controllers/absenceController');
+const downloadController = require('./controllers/downloadController');
 
 
 // Route LOGIN
 router.post('/signin/', controllerHandler(userController.login));
-router.get('/test/',checkJWT.check(['trainee']) ,(req,res,next)=>{
-    console.log('TEST OK -----------------------');
-    console.log('decoded',req.decoded.user);
-    res.json({
-        message: "ok" , 
-        decoded :req.decoded.user
-    });
-});
+
 
 // Routes EVENT
 router.get('/event/organizer/:date', checkJWT.check(['admin','former']), controllerHandler(eventController.getOrganizer));
@@ -86,6 +80,9 @@ router.put('/settings/' , checkJWT.check(['admin']), validator(schema.settings, 
 router.get('/absence/:user_id', checkJWT.check(['admin','former']), controllerHandler(absenceController.getAllAbsenceByUser));
 router.patch('/absence/:event_id', checkJWT.check(['admin','former']), controllerHandler(absenceController.addAbsenceOfEvent));
 
+
+// Route UPLOAD
+router.post('/upload/', downloadController.imgDownload);
 
 // LOGGER
 router.use(handleError);
