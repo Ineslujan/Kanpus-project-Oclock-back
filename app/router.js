@@ -20,6 +20,7 @@ const downloadController = require('./controllers/downloadController');
 
 
 // Route LOGIN
+router.get('/signin/', controllerHandler(settingsController.getStructureSetting));
 router.post('/signin/', controllerHandler(userController.login));
 
 
@@ -82,7 +83,7 @@ router.patch('/absence/:event_id', checkJWT.check(['admin','former']), controlle
 
 
 // Route UPLOAD
-router.post('/upload/', downloadController.imgDownload);
+router.post('/upload/',  checkJWT.check(['admin','former']),downloadController.imgDownload);
 
 // LOGGER
 router.use(handleError);
