@@ -4,9 +4,9 @@
   "phone_number": "0490861537",
   "email": "info@imca-provence.com",
   "url_image": "image.jpg",
-  "course_start_hour_am": "15:31:12",
-  "course_end_hour_am": "15:31:12",
-  "course_start_hour_pm": "15:31:12",
-  "course_end_hour_pm": "15:31:12",
+  "course_start_hour_am": "09:00:00",
+  "course_end_hour_am": "12:30:00",
+  "course_start_hour_pm": "14:00:00",
+  "course_end_hour_pm": "18:00:00",
   "updatedAt": "2022-04-13T13:47:10.604Z"
 }

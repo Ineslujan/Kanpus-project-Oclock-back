@@ -13,11 +13,11 @@ INSERT INTO kanpus_user (
 	promo_id
 ) VALUES 
 (
-	'admin',
-	'admin',
+	'admin2',
+	'admin2',
 	'45 rue fernand michel 84000 AVIGNON',
 	'+33678956412',
-	'admin@gmail.com',
+	'admin2@gmail.com',
 	'$2b$10$lTVQtGpEs5mtr.eDhCR7xO9y4HClflgyyT0V350OItJuEHV4vOI.e',
 	'thumbnail.jpg',
 	'#269987',
