@@ -7,35 +7,54 @@ module.exports = {
 
     getAllSetting: (req, res, next) => {
 
-        if (settings) {
-            debug(' > getAllSetting() ')
-            res.json(settings);
-        } else {
-            debug(' > getAllSetting() ')
-            next();
-        }
+
+        fs.readFile('./app/config/settings.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err)
+                next();
+                return
+            }
+            
+            const json = JSON.parse(data)
+            console.log('*****',data)
+            res.json(json);
+        })
 
     },
 
     getStructureSetting: (req, res, next) => {
 
-        const newSettings = {
+        fs.readFile('./app/config/settings.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err)
+                next();
+                
+            }
+            const json = JSON.parse(data)
+            const newSettings = {
 
-            name: settings.name,
-            address: settings.address,
-            phone_number: settings.phone_number,
-            email: settings.email,
-            url_image: settings.url_image
-        }
+                name: json.name,
+                address: json.address,
+                phone_number: json.phone_number,
+                email: json.email,
+                url_image: json.url_image
+            }
 
-        if (newSettings) {
-            debug(' > getStructureSetting() ');
+            
+            console.log(newSettings)
             res.json(newSettings);
+        })
 
-        } else {
-            debug(' > getStructureSetting() ');
-            next();
-        }
+
+
+        // if (newSettings) {
+        //     debug(' > getStructureSetting() ');
+        //     res.json(newSettings);
+
+        // } else {
+        //     debug(' > getStructureSetting() ');
+        //     next();
+        // }
 
     },
 
@@ -47,7 +66,7 @@ module.exports = {
         console.log("\nGranting read and write access to user");
         fs.chmod('./app/config/settings.json', 0o600, () => {
             console.log("Trying to write to file");
-       
+
 
             fs.writeFile('./app/config/settings.json', jsonString, err => {
                 if (err) {
