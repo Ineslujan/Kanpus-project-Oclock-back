@@ -25,6 +25,8 @@ module.exports = {
         const users = await DataMapper.getAllTraineeByPromo();
         users.map((e)=>{
             e.trainee.map((trainee)=>{
+                
+                trainee.image_thumbnail = trainee.image
                 trainee.image = url_avatar + trainee.image
             })
         })
@@ -43,6 +45,8 @@ module.exports = {
 
         users.map((e)=>{
             e.former.map((former)=>{
+                
+                former.image_thumbnail = former.image
                 former.image = url_avatar + former.image
             })
         })
