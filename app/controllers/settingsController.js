@@ -1,5 +1,6 @@
 const debug = require('debug')('settingsController');
 const settings = require('../config/settings.json');
+const url_avatar = process.env.URL_SERVER + 'avatar/';
 const fs = require('fs');
 
 // Controller only useful for reading and rewritting of the structure settings json
@@ -16,6 +17,8 @@ module.exports = {
             }
             
             const json = JSON.parse(data)
+            json.image = json.url_image;
+            json.url_image = url_avatar + json.url_image;
             console.log('*****',data)
             res.json(json);
         })
@@ -31,13 +34,15 @@ module.exports = {
                 
             }
             const json = JSON.parse(data)
+            
             const newSettings = {
 
                 name: json.name,
                 address: json.address,
                 phone_number: json.phone_number,
                 email: json.email,
-                url_image: json.url_image
+                url_image: url_avatar + json.url_image,
+                image: json.url_image
             }
 
             
