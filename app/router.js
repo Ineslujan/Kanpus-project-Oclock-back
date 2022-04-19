@@ -73,7 +73,7 @@ router.delete('/promo/:promo_id', checkJWT.check(['admin','former']), controller
 
 
 // Routes SETTINGS
-router.get('/settings/', checkJWT.check(['admin']), controllerHandler(settingsController.getAllSetting));
+router.get('/settings/', checkJWT.check(['admin','former']), controllerHandler(settingsController.getAllSetting));
 router.put('/settings/' , checkJWT.check(['admin']), validator(schema.settings, 'body'),controllerHandler(settingsController.updateAllSetting));
 
 
